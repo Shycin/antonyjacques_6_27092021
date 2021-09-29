@@ -1,23 +1,29 @@
-import React , { Component } from 'react'
-import {
+import React, { Component } from 'react'
+import PropTypes from "prop-types";
+/*import {
     withRouter,
-} from "react-router-dom"
-
+} from "react-router-dom"*/
 import logo from '../img/logo.png'
 
-import Tags from '../components/Tags'
+//import Tags from '../components/Tags'
 
 
-class Header extends Component {
+export default class Header extends Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     render(){
         return (
             <header>
                 <div><img src={logo} alt="Logo" /></div>
-                <Tags />
+                {this.props.children}
             </header>
         )
     }
 }
 
-const banner = withRouter(Header)
-export default banner
+Header.propTypes = {
+    children: PropTypes.React
+};
