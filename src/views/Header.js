@@ -25,5 +25,5 @@ export default class Header extends Component {
 }
 
 Header.propTypes = {
-    children: PropTypes.React
+    children: PropTypes.object
 };

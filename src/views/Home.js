@@ -1,7 +1,7 @@
 import React , { Component } from 'react'
 import Header from './Header'
 import ListTags from '../components/ListTags'
-
+import ListCards from '../components/ListCards'
 
 export default class Home extends Component {
     constructor(props) {
@@ -20,8 +20,10 @@ export default class Home extends Component {
     render() {
         return <>
             <Header>
-                <ListTags selected={this.state.selected} onChange={this.onChange.bind(this)} parameter={{'FirstLetter': true, 'test' : false}} />
+                <ListTags selected={this.state.selected} onChange={this.onChange.bind(this)} parameter={{'FirstLetter': true}} />
             </Header>
+
+            <ListCards selected={this.state.selected} onChange={this.onChange.bind(this)}></ListCards>
             
             <ListTags selected={this.state.selected} onChange={this.onChange.bind(this)} tags={['test1','test2','test3','sports']} />
             <h2>Home</h2> 
