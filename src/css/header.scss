@@ -1,0 +1,17 @@
+@import "./constant.scss";
+
+header
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    margin: 20px 0 100px 0 !important;
+
+    color: $primary-color;
+
+    img
+    {
+        height: 60px;
+    }
+}

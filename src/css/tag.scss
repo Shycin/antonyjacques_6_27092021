@@ -1,0 +1,77 @@
+@import './constant.scss';
+
+.navigation, .navigation__list
+{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.btn-categories
+{
+    position: relative;
+    z-index: 1;
+
+    padding: 3px 6px;
+    
+    background: #fff;
+    color: transparent;
+
+    border-radius: 50px;
+    border: 1px solid #c4c4c4;
+
+    font-weight: 500;
+    font-size: 12px;
+
+    cursor: pointer;
+
+    &:hover
+    {
+        &::before
+        {
+            opacity: 0;
+        }
+        &::after
+        {
+            opacity: 1;
+        }
+    }
+
+    &::before {
+        content: attr(tag);
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        color: $primary-color;
+        background: white;
+        opacity: 1;
+        z-index: -1;
+        transition: opacity 250ms;
+        border-radius: 90px;
+        line-height: 1.5;
+    }
+
+    &::after {
+        content: attr(tag);
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        color: white;
+        background: $primary-color;
+        opacity: 0;
+        z-index: -1;
+        transition: opacity 250ms;
+        border-radius: 90px;
+        line-height: 1.5;
+    }
+
+    .selected
+    {
+
+    }
+}

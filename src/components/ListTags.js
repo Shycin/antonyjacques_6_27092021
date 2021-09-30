@@ -1,9 +1,12 @@
 import React , { Component } from 'react'
 import PropTypes from "prop-types";
 
-import json_data from '../data/site.json'
 
+import json_data from '../data/site.json'
 import Tag from './Tag'
+
+
+import '../css/tag.scss';
 
 
 export default class ListTags extends Component {
@@ -52,13 +55,15 @@ export default class ListTags extends Component {
 
     render(){
         return <>
-            <ul>
-                { 
-                    this.props.tags.map(
-                        (tag,i) => this.renderTag(tag, i)
-                    ) 
-                }
-            </ul>
+            <nav className="navigation">
+                <ul className="navigation__list">
+                    { 
+                        this.props.tags.map(
+                            (tag,i) => this.renderTag(tag, i)
+                        ) 
+                    }
+                </ul>
+            </nav>    
         </>
     }
 }

@@ -18,9 +18,11 @@ export default class Tag extends Component {
     
     render() {
         return (
-            <button onClick={() => this.props.onClick() } className={"btn-group " + (this.props.tag == this.props.selected ? 'red' : 'none')}>
-                #{this.capitalizeFirstLetter(this.props.tag)}      
-            </button>
+            <li className="navigation__list__item">
+                <button tag={'#'+ this.capitalizeFirstLetter(this.props.tag)} onClick={() => this.props.onClick() } className={"btn-categories " + (this.props.tag == this.props.selected ? 'selected' : 'not_selected')}>
+                    {'#'+ this.capitalizeFirstLetter(this.props.tag)}
+                </button>
+            </li>
         );
     }
 }

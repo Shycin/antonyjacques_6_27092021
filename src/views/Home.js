@@ -3,6 +3,10 @@ import Header from './Header'
 import ListTags from '../components/ListTags'
 import ListCards from '../components/ListCards'
 
+
+import '../css/reset.scss';
+
+
 export default class Home extends Component {
     constructor(props) {
         super(props);
@@ -21,13 +25,12 @@ export default class Home extends Component {
         return <>
             <Header>
                 <ListTags selected={this.state.selected} onChange={this.onChange.bind(this)} parameter={{'FirstLetter': true}} />
+                <h1>Nos photographes</h1>
             </Header>
 
-            <ListCards selected={this.state.selected} onChange={this.onChange.bind(this)}></ListCards>
-            
-            <ListTags selected={this.state.selected} onChange={this.onChange.bind(this)} tags={['test1','test2','test3','sports']} />
-            <h2>Home</h2> 
-            {this.state.selected}
+            <main>
+                <ListCards selected={this.state.selected} onChange={this.onChange.bind(this)}></ListCards>
+            </main>
         </>
     }
 }

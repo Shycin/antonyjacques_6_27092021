@@ -2,8 +2,11 @@ import React , { Component } from 'react'
 import PropTypes from "prop-types";
 
 import json_data from '../data/site.json'
-
 import Card from './Card'
+
+
+import '../css/card.scss';
+
 
 export default class ListCards extends Component {
 
@@ -42,11 +45,13 @@ export default class ListCards extends Component {
 
     render(){
         return <>
+            <section className="photographers">
             {
                 this.state.photographers.map(
                     (photographer,i) => this.renderCard(photographer, i)
                 )
             }
+            </section>
         </>
     }
 }

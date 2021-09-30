@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from "prop-types";
-/*import {
-    withRouter,
-} from "react-router-dom"*/
+
+
 import logo from '../img/logo.png'
 
-//import Tags from '../components/Tags'
+
+import '../css/header.scss';
 
 
 export default class Header extends Component {
@@ -25,5 +25,5 @@ export default class Header extends Component {
 }
 
 Header.propTypes = {
-    children: PropTypes.object
+    children: PropTypes.array
 };
