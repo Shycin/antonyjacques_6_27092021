@@ -4,13 +4,14 @@
 {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
 
-    gap: 50px;
+    gap: 40px;
 
     &__card
     {
         width: 30%;
+        min-width: 250px;
+        margin: auto;
         text-align: center;
     }
 }

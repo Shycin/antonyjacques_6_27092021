@@ -17,7 +17,7 @@ export default class Header extends Component {
     render(){
         return (
             <header>
-                <div><img src={logo} alt="Logo" /></div>
+                <div className="logo"><img src={logo} alt="Logo" /></div>
                 {this.props.children}
             </header>
         )
