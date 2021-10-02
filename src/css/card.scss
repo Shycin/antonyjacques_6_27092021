@@ -5,13 +5,12 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
 
     gap: 50px;
 
     &__card
     {
-        flex: 1 1 30%; /*grow | shrink | basis */
+        width: 30%;
         text-align: center;
     }
 }
@@ -65,5 +64,71 @@
     &__categories
     {
         margin-top: 10px;
+    }
+
+    &.show
+    {
+        animation-name: show_card;
+        animation-duration: .5s;
+        animation-timing-function: ease-in;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+
+    &.hidden
+    {
+        animation-name: hide_card;
+        animation-duration: .5s;
+        animation-timing-function: ease-in;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+}
+
+@keyframes show_card {
+    from
+    {
+        opacity: 0;
+        transform: scale(0);
+        position: absolute;
+    }
+
+    99%
+    {
+        transform: scale(0);
+        position: absolute;
+    }
+
+    to
+    {
+        opacity: 1;
+        transform: scale(1);
+        position: relative;
+    }
+}
+
+
+@keyframes hide_card {
+    from
+    {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    90%
+    {
+        transform: scale(1);
+    }
+
+    99%
+    {
+        position: relative;
+    }
+
+    to
+    {
+        opacity: 0;
+        transform: scale(0);
+        position: absolute;
     }
 }

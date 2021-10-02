@@ -1,4 +1,4 @@
-import React , { Component } from 'react'
+import React from 'react'
 import PropTypes from "prop-types";
 
 
@@ -8,68 +8,49 @@ import Tag from './Tag'
 
 import '../css/tag.scss';
 
+const ListTags = ({tags, parameter}) => {
 
-export default class ListTags extends Component {
-
-    constructor(props) {    
-        super(props);    
-
-        this.state = {
-            selected: "default",
-        };
-
-        if(this.props.tags.length == 0)
-        {
-            this.initialize_all_tags();
-        } 
-    }
-
-    //Event when Tag is clicked
-    handleClick(tag) 
-    {    
-        this.setState({selected: tag});  
-
-        this.props.onChange('selected', tag);
-    }
-
-    
     // function to retrieve all tags if no tags parameter
+    const initialize_all_tags = () => {
+        if(tags.length == 0 || tags.length == null)
+        {
+            json_data.photographers.map(
+                photographer => {
+                    photographer.tags.map(
+                        (tag) => { 
+                            tags.indexOf(tag) === -1 ? tags.push(tag) : null 
+                        }
+                    ) 
+                }
+            );
+        }
+    }
     initialize_all_tags()
-    {
-        json_data.photographers.map(
-            photographer => {
-                photographer.tags.map(
-                    (tag) => { 
-                        this.props.tags.indexOf(tag) === -1 ? this.props.tags.push(tag) : null 
-                    }
-                ) 
-            }
-        );
+
+    const renderTag = (tag, i) => {
+        return <Tag key={i} tag={tag} capitalize={parameter.FirstLetter}/>;
     }
 
-
-    renderTag(tag,i) 
-    {
-        return <Tag key={i} selected={this.props.selected} tag={tag} onClick={() => this.handleClick(tag) } capitalize={this.props.parameter.FirstLetter}/>;
-    }
-
-    render(){
-        return <>
+    return (
+        <>
             <nav className="navigation">
                 <ul className="navigation__list">
                     { 
-                        this.props.tags.map(
-                            (tag,i) => this.renderTag(tag, i)
+                        tags.map(
+                            (tag,i) => renderTag(tag, i)
                         ) 
                     }
                 </ul>
             </nav>    
         </>
-    }
+    )
 }
+export default ListTags
+
 
 ListTags.propTypes = {
     tags: PropTypes.array.isRequired,
+    FirstLetter: PropTypes.bool,
     selected: PropTypes.string,
     onChange: PropTypes.func,
     parameter: PropTypes.object

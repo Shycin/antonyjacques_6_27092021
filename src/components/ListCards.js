@@ -1,4 +1,4 @@
-import React , { Component } from 'react'
+import React , { useState } from 'react'
 import PropTypes from "prop-types";
 
 import json_data from '../data/site.json'
@@ -6,56 +6,42 @@ import Card from './Card'
 
 
 import '../css/card.scss';
+import '../css/tag.scss';
 
 
-export default class ListCards extends Component {
-
-    constructor(props) {    
-        super(props);    
-
-        this.state = {
-            photographers: []
-        };
-
-        this.initialize_all_photographer();
-    }
-
+const ListCards = () => {
+    const [photographers] = useState([])
+    const [photographers_name] = useState([])
 
     // function to retrieve all tags if no tags parameter
-    initialize_all_photographer()
-    {
+    const initialize_all_photographer = () => {
         json_data.photographers.map(
             photographer => {
-                this.state.photographers.push(photographer) 
+                if(photographers_name.indexOf(photographer.name) === -1)
+                {
+                    photographers.push(photographer)
+                    photographers_name.push(photographer.name)
+                }
             }
         );
     }
+    initialize_all_photographer()
 
-    onChange(field, value) {
-        // parent class change handler is always called with field name and value
-        this.setState({[field]: value});
-        this.props.onChange(field, value);
+    const renderCard = (photographer, i) => {
+        return <Card key={i} photographer={photographer} />;
     }
 
-
-    renderCard(photographer,i) 
-    {
-        return <Card key={i} photographer={photographer} selected={this.props.selected} onChange={this.onChange.bind(this)}/>;
-    }
-
-    render(){
-        return <>
-            <section className="photographers">
-            {
-                this.state.photographers.map(
-                    (photographer,i) => this.renderCard(photographer, i)
-                )
-            }
-            </section>
-        </>
-    }
+    return (
+        <section className="photographers">
+        {
+            photographers.map(
+                (photographer,i) => renderCard(photographer, i)
+            )
+        }
+        </section>  
+    )
 }
-
+export default ListCards
 
 ListCards.propTypes = {
     selected: PropTypes.string,
