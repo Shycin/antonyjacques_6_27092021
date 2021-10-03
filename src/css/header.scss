@@ -6,7 +6,8 @@ header
     align-items: center;
     justify-content: space-evenly;
 
-    margin: 20px 0 100px 0 !important;
+    margin: 20px 0 50px 0 !important;
+    gap: 0 20px;
 
     color: $primary-color;
 
@@ -18,7 +19,6 @@ header
     h1
     {
         text-align: right;
-        font-size: 16px;
     }
 
     @media (max-width:768px) 
@@ -37,12 +37,39 @@ header
         h1
         {
             grid-area: d2;
-            font-size: 12px;
+            font-size: 16px;
         }
 
         .navigation
         {
             grid-area: d3;
         }
+    }
+
+    .reset_Cards
+    {
+        position: fixed;
+        top: 5px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 1000;
+
+        &.hidden
+        {
+            opacity: 0;
+        }
+
+        button
+        {
+            padding: 5px 10px;
+            background: $secondary-color;
+            border-radius: 5px;
+            border-width: 0px;
+            font-weight: 500;
+            font-size: 12px;
+            color: black;
+            cursor: pointer;
+        }       
     }
 }

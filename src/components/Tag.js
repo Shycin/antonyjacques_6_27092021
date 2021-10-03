@@ -15,7 +15,14 @@ const Tag = ({tag, capitalize}) => {
     }
 
     const onClick = () => {
-        setSelected(tag)
+        if(tag == selected)
+        {
+            setSelected('default')
+        }
+        else
+        {
+            setSelected(tag)
+        }   
     }
 
     return (
