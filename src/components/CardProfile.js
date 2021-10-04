@@ -18,7 +18,6 @@ const CardProfile = ({photographer}) => {
                 </h1>
                 <div className="card__content__location">{photographer.city + ", " + photographer.country}</div>
                 <p className="card__content__description">{photographer.tagline}</p>
-                <div className="card__content__price">{photographer.price}€/jour</div>
                 <div className="card__categories">
                     <ListTags tags={photographer.tags} />
                 </div>

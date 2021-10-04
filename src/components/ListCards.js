@@ -29,7 +29,7 @@ const ListCards = ({photographerID = 0}) => {
     initialize_all_photographer()
 
     const renderCard = (photographer, i) => {
-        if(photographerID === '0')
+        if(photographerID === 0)
         {
             return <Card key={i} photographer={photographer}></Card>;
         }
