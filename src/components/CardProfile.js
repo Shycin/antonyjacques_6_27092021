@@ -1,17 +1,21 @@
-import React , { useContext } from 'react'
+import React , { useContext, useEffect } from 'react'
 import PropTypes from "prop-types"
 import { ContextComponent } from '../Provider'
+import { Link } from 'react-router-dom'
+
 import Contact from '../components/Contact'
-
-
 import ListTags from '../components/ListTags'
 
 
 const CardProfile = ({photographer}) => {
-    const { selected } = useContext(ContextComponent)
+    const { setSelected } = useContext(ContextComponent)
+    
+    useEffect(() => {
+        setSelected('default')
+    }, []);
 
     return (
-        <article className={"photographers__card card " + ( selected != "default" ? (photographer.tags.indexOf(selected) != -1 ? 'show' : 'hidden') : '' )}>
+        <article className={"photographers__card card"}>
             <div className="card__content">
                 <h1 className="card__content__name">
                     {photographer.name}
@@ -19,7 +23,9 @@ const CardProfile = ({photographer}) => {
                 <div className="card__content__location">{photographer.city + ", " + photographer.country}</div>
                 <p className="card__content__description">{photographer.tagline}</p>
                 <div className="card__categories">
-                    <ListTags tags={photographer.tags} />
+                    <Link to={"/"}>
+                        <ListTags tags={photographer.tags} />
+                    </Link>
                 </div>
             </div>
             <div className="card__contact">

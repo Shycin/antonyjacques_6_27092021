@@ -1,0 +1,32 @@
+.product
+{
+    &__filter
+    {
+
+    }
+
+    &__content
+    {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        gap: 50px 100px;
+
+        &__item
+        {
+            width: calc(100%/3 - 100px);
+            height: 300px;
+            overflow: hidden;
+
+            img, video
+            {
+                object-fit: cover;
+                width: 100% !important;
+                height: 100% !important; 
+                margin: 0 !important;
+                object-position: 50% 25%;
+            }
+        }
+    }
+}

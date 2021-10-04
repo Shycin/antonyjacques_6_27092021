@@ -93,11 +93,11 @@
 
 #photographer-page
 {
-    background-color: $bg-light;
-    padding: 50px;
-
     .photographers
     {
+        background-color: $bg-light;
+        padding: 50px;
+        
         &__card
         {
             width: 100%;

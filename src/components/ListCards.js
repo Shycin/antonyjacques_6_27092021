@@ -14,7 +14,7 @@ const ListCards = ({photographerID = 0}) => {
     const [photographers] = useState([])
     const [photographers_name] = useState([])
 
-    // function to retrieve all tags if no tags parameter
+    // function to retrieve all photographer if no photographers parameter
     const initialize_all_photographer = () => {
         json_data.photographers.map(
             photographer => {
