@@ -18,28 +18,31 @@
 
 .card
 {
-    &__icon
+    &__header
     {
-        width: 200px;
-        height: 200px;
-
-        border-radius: 100%;
-        overflow: hidden;
-
-        margin: 0 auto 20px auto;
-
-        img
+        &__icon
         {
-            object-fit: cover;
-            width: 100% !important;
-            height: 100% !important; 
-            margin: 0 !important;
-        }
-    }
+            width: 200px;
+            height: 200px;
 
-    &__name
-    {
-        color: $secondary-color;
+            border-radius: 100%;
+            overflow: hidden;
+
+            margin: 0 auto 20px auto;
+
+            img
+            {
+                object-fit: cover;
+                width: 100% !important;
+                height: 100% !important; 
+                margin: 0 !important;
+            }
+        }
+
+        &__name
+        {
+            color: $secondary-color;
+        }
     }
 
     &__content

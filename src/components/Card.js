@@ -1,22 +1,30 @@
 import React , { useContext } from 'react'
 import PropTypes from "prop-types"
 import { ContextComponent } from '../Provider'
+import { Link } from 'react-router-dom'
 
 
 import ListTags from '../components/ListTags'
 
 
-const Card = ({photographer}) => {
+const Card = ({photographer, contact}) => {
     const { selected } = useContext(ContextComponent)
 
     return (
         <article className={"photographers__card card " + ( selected != "default" ? (photographer.tags.indexOf(selected) != -1 ? 'show' : 'hidden') : '' )}>
-            <figure className="card__icon">
-                <img src={'../img/author/' + photographer.portrait}></img>
-            </figure>
-            <h2 className="card__name">
-                {photographer.name}
-            </h2>
+            { 
+                contact
+            }
+            <div className="card__header">
+                <Link to={"/photographer-page/" + photographer.id}>
+                    <figure className="card__header__icon">
+                        <img alt={photographer.name} src={'../img/author/' + photographer.portrait}></img>
+                    </figure>
+                    <h2 className="card__header__name">
+                        {photographer.name}
+                    </h2>
+                </Link>
+            </div>
             <div className="card__content">
                 <div className="card__content__location">{photographer.city + ", " + photographer.country}</div>
                 <p className="card__content__description">{photographer.tagline}</p>
@@ -33,5 +41,6 @@ export default Card
 Card.propTypes = {
     selected: PropTypes.string,
     photographer: PropTypes.object,
+    contact: PropTypes.object,
     onChange: PropTypes.func,
 };

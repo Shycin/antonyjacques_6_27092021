@@ -9,7 +9,7 @@ import '../css/card.scss';
 import '../css/tag.scss';
 
 
-const ListCards = ({target = []}) => {
+const ListCards = ({target = [], contact_target = []}) => {
     const [photographers] = useState([])
     const [photographers_name] = useState([])
 
@@ -30,12 +30,11 @@ const ListCards = ({target = []}) => {
     const renderCard = (photographer, i) => {
         if(target.indexOf(''+photographer.id) != -1 || target.length == 0)
         {
-            return <Card key={i} photographer={photographer} />;
+            return <Card key={i} photographer={photographer} contact={contact_target}></Card>;
         }
 
         return null
     }
-
     return (
         <section className="photographers">
         {
@@ -50,6 +49,7 @@ export default ListCards
 
 ListCards.propTypes = {
     target: PropTypes.array,
+    contact_target: PropTypes.array,
     selected: PropTypes.string,
     photographer: PropTypes.array,
     onChange: PropTypes.func,
