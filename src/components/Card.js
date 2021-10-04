@@ -1,18 +1,18 @@
 import React , { useContext } from 'react'
 import PropTypes from "prop-types"
-import { TagSelected } from '../Provider'
+import { ContextComponent } from '../Provider'
 
 
 import ListTags from '../components/ListTags'
 
 
 const Card = ({photographer}) => {
-    const { selected } = useContext(TagSelected)
+    const { selected } = useContext(ContextComponent)
 
     return (
         <article className={"photographers__card card " + ( selected != "default" ? (photographer.tags.indexOf(selected) != -1 ? 'show' : 'hidden') : '' )}>
             <figure className="card__icon">
-                <img src={'./img/author/' + photographer.portrait}></img>
+                <img src={'../img/author/' + photographer.portrait}></img>
             </figure>
             <h2 className="card__name">
                 {photographer.name}

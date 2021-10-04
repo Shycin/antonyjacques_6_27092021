@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
-import { TagSelected } from '../Provider'
+import { ContextComponent } from '../Provider'
 
 const Home = () => {
-    const { setSelected } = useContext(TagSelected)
+    const { setSelected } = useContext(ContextComponent)
     const [ show, setShow ] = useState(false)
 
     var last_position = 0;

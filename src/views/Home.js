@@ -4,8 +4,6 @@ import ListTags from '../components/ListTags'
 import ListCards from '../components/ListCards'
 import ResetCards from '../components/ResetCards'
 
-import '../css/reset.scss';
-
 const Home = () => {
     return (
         <div>
@@ -14,7 +12,7 @@ const Home = () => {
                 <ListTags parameter={{'FirstLetter': true}} />
                 <h1>Nos photographes</h1>
             </Header>
-            <main>
+            <main className="home">
                 <ListCards></ListCards>
             </main>
         </div>

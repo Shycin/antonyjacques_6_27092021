@@ -8,11 +8,12 @@ import PropTypes from "prop-types";
 
 
 const Routes = (props) =>{
-    const { home } = props.urls
+    const { home, photographerpage } = props.urls
     return (
         <Router>
             <Switch>
                 <Route exact path="/">{ home }</Route>
+                <Route path="/photographer-page/:photographerID">{ photographerpage }</Route>
             </Switch>
         </Router>      
     )

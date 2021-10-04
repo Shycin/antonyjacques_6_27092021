@@ -1,10 +1,10 @@
 import React , { useContext } from 'react'
 import PropTypes from "prop-types";
-import { TagSelected } from '../Provider'
+import { ContextComponent } from '../Provider'
 
 
 const Tag = ({tag, capitalize}) => {
-    const { selected, setSelected } = useContext(TagSelected)
+    const { selected, setSelected } = useContext(ContextComponent)
     
     const capitalizeFirstLetter = (string) => {
         if(capitalize)

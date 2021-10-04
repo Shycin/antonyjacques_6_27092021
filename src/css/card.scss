@@ -70,7 +70,7 @@
     &.show
     {
         animation-name: show_card;
-        animation-duration: .5s;
+        animation-duration: 0;
         animation-timing-function: ease-in;
         animation-iteration-count: 1;
         animation-fill-mode: forwards;
@@ -79,7 +79,7 @@
     &.hidden
     {
         animation-name: hide_card;
-        animation-duration: .5s;
+        animation-duration: 0s;
         animation-timing-function: ease-in;
         animation-iteration-count: 1;
         animation-fill-mode: forwards;
@@ -96,6 +96,7 @@
 
     99%
     {
+        opacity: 0;
         transform: scale(0);
         position: absolute;
     }
@@ -116,13 +117,10 @@
         transform: scale(1);
     }
 
-    90%
-    {
-        transform: scale(1);
-    }
-
     99%
     {
+        opacity: 1;
+        transform: scale(1);
         position: relative;
     }
 

@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
 import PropTypes from "prop-types";
 
-export const TagSelected = React.createContext()
+export const ContextComponent = React.createContext()
 
 export const ContextProvider = ({ children }) => {
     const [selected, setSelected] = useState('default')
     return (
-        <TagSelected.Provider
+        <ContextComponent.Provider
             value={{
                 selected,
                 setSelected,
             }}
         >
             {children}
-        </TagSelected.Provider>
+        </ContextComponent.Provider>
     )
 }
 

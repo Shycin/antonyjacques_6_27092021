@@ -9,7 +9,7 @@ import '../css/card.scss';
 import '../css/tag.scss';
 
 
-const ListCards = () => {
+const ListCards = ({target = []}) => {
     const [photographers] = useState([])
     const [photographers_name] = useState([])
 
@@ -28,7 +28,12 @@ const ListCards = () => {
     initialize_all_photographer()
 
     const renderCard = (photographer, i) => {
-        return <Card key={i} photographer={photographer} />;
+        if(target.indexOf(''+photographer.id) != -1 || target.length == 0)
+        {
+            return <Card key={i} photographer={photographer} />;
+        }
+
+        return null
     }
 
     return (
@@ -44,6 +49,7 @@ const ListCards = () => {
 export default ListCards
 
 ListCards.propTypes = {
+    target: PropTypes.array,
     selected: PropTypes.string,
     photographer: PropTypes.array,
     onChange: PropTypes.func,

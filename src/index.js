@@ -2,9 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Home from './views/Home'
+import PhotographerPage from './views/PhotographerPage'
 import Routes from './Routes'
 
 import { ContextProvider } from './Provider'
+
+import './css/reset.scss';
 
 ReactDOM.render(
     <React.StrictMode>
@@ -12,7 +15,8 @@ ReactDOM.render(
       <ContextProvider>
         <Routes
           urls={{
-            home: <Home />
+            home: <Home />,
+            photographerpage: <PhotographerPage />
           }}>
         </Routes>
       </ContextProvider>
