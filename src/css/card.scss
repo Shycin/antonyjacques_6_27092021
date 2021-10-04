@@ -16,6 +16,8 @@
     }
 }
 
+
+
 .card
 {
     &__header
@@ -88,6 +90,66 @@
         animation-fill-mode: forwards;
     }
 }
+
+#photographer-page
+{
+    background-color: $bg-light;
+    padding: 50px 20px;
+
+    .photographers
+    {
+        &__card
+        {
+            width: 100%;
+        }
+    }
+
+    .card
+    {
+        display: flex;
+        justify-content: space-between;
+        text-align: left;
+
+        &__content
+        {
+            &__description
+            {
+                color: $tertio-color;
+            } 
+
+            &__name
+            {
+                color: $secondary-color;
+            }
+        }
+
+        &__contact
+        {
+            flex: 1;
+        }
+
+        &__icon
+        {
+            width: 200px;
+            height: 200px;
+
+            border-radius: 100%;
+            overflow: hidden;
+
+            margin: 0 auto 20px auto;
+
+            img
+            {
+                object-fit: cover;
+                width: 100% !important;
+                height: 100% !important; 
+                margin: 0 !important;
+            }
+        }
+    }
+}
+
+
 
 @keyframes show_card {
     from

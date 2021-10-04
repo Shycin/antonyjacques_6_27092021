@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 
 import json_data from '../data/site.json'
 import Card from './Card'
+import CardProfile from './CardProfile'
 
 
 import '../css/card.scss';
 import '../css/tag.scss';
 
 
-const ListCards = ({target = [], contact_target = []}) => {
+const ListCards = ({photographerID = 0}) => {
     const [photographers] = useState([])
     const [photographers_name] = useState([])
 
@@ -28,9 +29,13 @@ const ListCards = ({target = [], contact_target = []}) => {
     initialize_all_photographer()
 
     const renderCard = (photographer, i) => {
-        if(target.indexOf(''+photographer.id) != -1 || target.length == 0)
+        if(photographerID === '0')
         {
-            return <Card key={i} photographer={photographer} contact={contact_target}></Card>;
+            return <Card key={i} photographer={photographer}></Card>;
+        }
+        else if(photographerID == photographer.id)
+        {
+            return <CardProfile key={i} photographer={photographer}/>
         }
 
         return null
@@ -48,9 +53,7 @@ const ListCards = ({target = [], contact_target = []}) => {
 export default ListCards
 
 ListCards.propTypes = {
-    target: PropTypes.array,
-    contact_target: PropTypes.array,
+    photographerID: PropTypes.string,
     selected: PropTypes.string,
     photographer: PropTypes.array,
-    onChange: PropTypes.func,
 };

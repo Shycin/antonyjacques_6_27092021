@@ -2,8 +2,7 @@ import React from 'react'
 import { useParams } from "react-router-dom";
 
 import Header from './Header'
-import ListCards from '../components/ListCards'
-import Contact from '../components/Contact'
+import ListCards from '../components/ListCards';
 
 const PhotographerPage = () => {
     const { photographerID } = useParams();
@@ -12,9 +11,7 @@ const PhotographerPage = () => {
         <div>
             <Header />
             <main id="photographer-page">
-                <ListCards target={[photographerID]} contact_target={[<Contact key="0" photographerID={photographerID}/>]}>
-                    
-                </ListCards>
+                <ListCards photographerID={photographerID}/>
             </main>
         </div>
     )

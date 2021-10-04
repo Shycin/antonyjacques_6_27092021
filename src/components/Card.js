@@ -7,14 +7,11 @@ import { Link } from 'react-router-dom'
 import ListTags from '../components/ListTags'
 
 
-const Card = ({photographer, contact}) => {
+const Card = ({photographer}) => {
     const { selected } = useContext(ContextComponent)
 
     return (
         <article className={"photographers__card card " + ( selected != "default" ? (photographer.tags.indexOf(selected) != -1 ? 'show' : 'hidden') : '' )}>
-            { 
-                contact
-            }
             <div className="card__header">
                 <Link to={"/photographer-page/" + photographer.id}>
                     <figure className="card__header__icon">
@@ -42,5 +39,4 @@ Card.propTypes = {
     selected: PropTypes.string,
     photographer: PropTypes.object,
     contact: PropTypes.object,
-    onChange: PropTypes.func,
 };
