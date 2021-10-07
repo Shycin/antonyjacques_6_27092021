@@ -1,25 +1,28 @@
-import React from "react"
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-} from "react-router-dom"
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
+import React from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-
-const Routes = (props) =>{
-    const { home, photographerpage } = props.urls
-    return (
-        <Router>
-            <Switch>
-                <Route exact path="/">{ home }</Route>
-                <Route path="/photographer-page/:photographerID">{ photographerpage }</Route>
-            </Switch>
-        </Router>      
-    )
+const Routes = (props) => {
+  const { urls } = props
+  return (
+    <Router>
+      <Switch>
+        <Route exact path='/'>
+          {urls.home}
+        </Route>
+        <Route path='/photographer-page/:photographerID'>
+          {urls.photographerpage}
+        </Route>
+      </Switch>
+    </Router>
+  )
 }
 export default Routes
 
 Routes.propTypes = {
-    urls: PropTypes.object,
-};
+  urls: PropTypes.objectOf,
+}
+
+Routes.defaultProps = {
+  urls: {},
+}

@@ -1,21 +1,20 @@
 import React from 'react'
-import { useParams } from "react-router-dom";
-
+import { useParams } from 'react-router-dom'
+import ContentProfile from '../components/ContentProfile'
+import ListCards from '../components/ListCards'
 import Header from './Header'
-import ListCards from '../components/ListCards';
-import ContentProfile from '../components/ContentProfile';
 
 const PhotographerPage = () => {
-    const { photographerID } = useParams();
+  const { photographerID } = useParams()
 
-    return (
-        <div>
-            <Header />
-            <main id="photographer-page">
-                <ListCards photographerID={photographerID}/>
-                <ContentProfile photographerID={photographerID}/>
-            </main>
-        </div>
-    )
+  return (
+    <div>
+      <Header />
+      <main id='photographer-page'>
+        <ListCards photographerID={photographerID} />
+        <ContentProfile photographerID={photographerID} />
+      </main>
+    </div>
+  )
 }
 export default PhotographerPage

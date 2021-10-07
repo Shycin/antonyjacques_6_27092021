@@ -1,29 +1,24 @@
-import React, { Component } from 'react'
-import PropTypes from "prop-types";
-
-
+import PropTypes from 'prop-types'
+import React from 'react'
+import '../css/header.scss'
 import logo from '../img/logo.png'
 
-
-import '../css/header.scss';
-
-
-export default class Header extends Component {
-
-    constructor(props) {
-        super(props);
-    }
-
-    render(){
-        return (
-            <header>
-                <div className="logo"><a href="/"><img src={logo} alt="Logo" /></a></div>
-                {this.props.children}
-            </header>
-        )
-    }
-}
+const Header = ({ children }) => (
+  <header>
+    <div className='logo'>
+      <a href='/'>
+        <img src={logo} alt='Logo' />
+      </a>
+    </div>
+    {children}
+  </header>
+)
+export default Header
 
 Header.propTypes = {
-    children: PropTypes.array
-};
+  children: PropTypes.arrayOf,
+}
+
+Header.defaultProps = {
+  children: '',
+}
