@@ -1,21 +1,41 @@
+@import "./constant.scss";
+
 .product
 {
     &__filter
     {
+        margin: 20px 0 50px 0;
+        display: flex;
+        gap: 20px;
+        font-weight: bold;
 
+        select
+        {
+            background-color: $primary-color;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            appearance: none;
+            outline: 0;
+            border: 0 !important;
+            background-image: none;
+            box-shadow: none;
+        }
     }
 
     &__content
     {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: space-between;
 
         gap: 50px 100px;
 
         &__item
         {
-            width: calc(100%/3 - 100px);
+            width: 25%;
+            min-width: calc(100%/3 - 100px);
             height: 300px;
             overflow: hidden;
 

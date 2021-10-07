@@ -2,18 +2,18 @@ import React from 'react'
 import Header from './Header'
 import ListTags from '../components/ListTags'
 import ListCards from '../components/ListCards'
-import ResetCards from '../components/ResetCards'
+import ResetCard from '../components/ResetCards'
 
 const Home = () => {
     return (
         <div>
             <Header>
-                <ResetCards></ResetCards>
+                <ResetCard />
                 <ListTags parameter={{'FirstLetter': true}} />
                 <h1>Nos photographes</h1>
             </Header>
             <main className="home">
-                <ListCards></ListCards>
+                <ListCards />
             </main>
         </div>
     )

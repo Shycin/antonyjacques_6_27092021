@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { ContextComponent } from '../Provider'
 
-const Home = () => {
-    const { selected, setSelected } = useContext(ContextComponent)
+const ResetCard = () => {
+        const { selected, setSelected } = useContext(ContextComponent)
     const [ show, setShow ] = useState(false)
 
     var last_position = 0;
@@ -31,4 +31,4 @@ const Home = () => {
         </div>
     )
 }
-export default Home
+export default ResetCard

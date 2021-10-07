@@ -1,14 +1,14 @@
-import React , { useContext } from 'react'
 import PropTypes from "prop-types"
-import { ContextComponent } from '../Provider'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-
-
 import ListTags from '../components/ListTags'
+import { ContextComponent } from '../Provider'
+
+
 
 
 const Card = ({photographer}) => {
-    const { selected } = useContext(ContextComponent)
+    const { selected } = useContext(ContextComponent);
 
     return (
         <article className={"photographers__card card " + ( selected != "default" ? (photographer.tags.indexOf(selected) != -1 ? 'show' : 'hidden') : '' )}>
