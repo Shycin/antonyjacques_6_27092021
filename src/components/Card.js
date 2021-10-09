@@ -8,6 +8,7 @@ const Card = ({ photographer }) => {
   const { selected } = useContext(selectContext)
 
   const hideOrShow = () => {
+    console.log(selected)
     if (selected !== 'default') {
       return photographer.tags.indexOf(selected) !== -1 ? 'show' : ''
     }
