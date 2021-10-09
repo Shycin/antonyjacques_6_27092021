@@ -11,8 +11,8 @@ const PhotographerPage = () => {
     <div>
       <Header />
       <main id='photographer-page'>
-        <ListCards photographerID={photographerID} />
-        <ContentProfile photographerID={photographerID} />
+        <ListCards photographerID={parseInt(photographerID, 10)} />
+        <ContentProfile photographerID={parseInt(photographerID, 10)} />
       </main>
     </div>
   )

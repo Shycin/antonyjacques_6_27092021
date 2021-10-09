@@ -10,7 +10,7 @@ const ContentProfile = ({ photographerID }) => {
   // Function pour ajouter un ordre croissant et décroissant dans les filtres
   // const [ order, setOrder ] = useState('DESC')
   // const designOrder = { "ASC" : "↑", "DESC" : "↓"}
-
+  console.log(photographerID)
   const filtreExistant = [
     { name: 'Popularité', function: 'popular' },
     { name: 'Date', function: 'date' },
@@ -113,9 +113,9 @@ const ContentProfile = ({ photographerID }) => {
 export default ContentProfile
 
 ContentProfile.propTypes = {
-  photographerID: PropTypes.string,
+  photographerID: PropTypes.number,
 }
 
 ContentProfile.defaultProps = {
-  photographerID: '',
+  photographerID: null,
 }

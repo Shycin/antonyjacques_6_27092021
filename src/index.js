@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './css/reset.scss'
-import { ContextProvider } from './Provider'
 import Routes from './Routes'
+import { ContextProvider } from './selectContext'
 import Home from './views/Home'
 import PhotographerPage from './views/PhotographerPage'
 

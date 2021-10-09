@@ -20,7 +20,7 @@ const Routes = (props) => {
 export default Routes
 
 Routes.propTypes = {
-  urls: PropTypes.objectOf,
+  urls: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.element])),
 }
 
 Routes.defaultProps = {

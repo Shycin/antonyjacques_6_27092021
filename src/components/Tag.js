@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { useContext } from 'react'
-import { selectContext } from '../Provider'
+import { selectContext } from '../selectContext'
 
 const Tag = ({ tag, capitalize }) => {
   const { selected, setSelected } = useContext(selectContext)

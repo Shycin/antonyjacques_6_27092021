@@ -1,10 +1,9 @@
-/* eslint-disable camelcase */
 import React, { useState } from 'react'
 import { uid } from 'react-uid'
 
 const ListBox = () => {
   const [itemSelected /* , setItemSelected */] = useState('popular')
-  const filtre_existant = [
+  const filtreExistant = [
     { name: 'Popularité', function: 'popular' },
     { name: 'Date', function: 'date' },
     { name: 'Titre', function: 'title' },
@@ -17,14 +16,14 @@ const ListBox = () => {
         {itemSelected}
       </button>
       <div className='listbox__list'>
-        {filtre_existant.map((filtre, i) => {
-          let key_i = i
+        {filtreExistant.map((filtre, i) => {
+          let keyI = i
           if (filtre.name === itemSelected) {
-            key_i = 0
+            keyI = 0
           } else {
-            key_i += 1
+            keyI += 1
           } // si l'élément dans les filtres est le même que celui actuellement séléctionner le met au dessus de la pile
-          return <div key={uid(filtre, key_i)}>{filtre.name}</div>
+          return <div key={uid(filtre, keyI)}>{filtre.name}</div>
         })}
       </div>
     </div>

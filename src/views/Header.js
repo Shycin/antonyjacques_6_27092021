@@ -16,9 +16,9 @@ const Header = ({ children }) => (
 export default Header
 
 Header.propTypes = {
-  children: PropTypes.arrayOf,
+  children: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element])),
 }
 
 Header.defaultProps = {
-  children: '',
+  children: null,
 }

@@ -6,7 +6,7 @@ import jsonData from '../data/site.json'
 import Card from './Card'
 import CardProfile from './CardProfile'
 
-const ListCards = ({ photographerID = 0 }) => {
+const ListCards = ({ photographerID }) => {
   const [photographers] = useState([])
   const [photographersName] = useState([])
 
@@ -41,9 +41,9 @@ const ListCards = ({ photographerID = 0 }) => {
 export default ListCards
 
 ListCards.propTypes = {
-  photographerID: PropTypes.string,
+  photographerID: PropTypes.number,
 }
 
 ListCards.defaultProps = {
-  photographerID: '',
+  photographerID: 0,
 }

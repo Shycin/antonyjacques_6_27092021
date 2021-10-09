@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { selectContext } from '../Provider'
+import { selectContext } from '../selectContext'
 import Contact from './Contact'
 import ListTags from './ListTags'
 
@@ -41,5 +41,11 @@ const CardProfile = ({ photographer }) => {
 export default CardProfile
 
 CardProfile.propTypes = {
-  photographer: PropTypes.objectOf.isRequired,
+  photographer: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string),
+    ])
+  ).isRequired,
 }

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { selectContext } from '../Provider'
+import { selectContext } from '../selectContext'
 
 const ResetCard = () => {
   const { selected, setSelected } = useContext(selectContext)

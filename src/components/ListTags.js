@@ -5,6 +5,8 @@ import jsonData from '../data/site.json'
 import Tag from './Tag'
 
 const ListTags = ({ tags, parameter }) => {
+  console.log(tags)
+
   // function to retrieve all tags if no tags parameter
   const initializeAllTags = () => {
     if (tags.length === 0 || tags.length == null) {
@@ -34,12 +36,13 @@ const ListTags = ({ tags, parameter }) => {
 export default ListTags
 
 ListTags.propTypes = {
-  tags: PropTypes.arrayOf.isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string),
   FirstLetter: PropTypes.bool,
-  parameter: PropTypes.objectOf,
+  parameter: PropTypes.objectOf(PropTypes.arrayOf),
 }
 
 ListTags.defaultProps = {
+  tags: [],
   FirstLetter: false,
   parameter: {},
 }
