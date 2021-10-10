@@ -1,32 +1,36 @@
+/* eslint-disable spaced-comment */
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { useUID } from 'react-uid'
+import { filtreImageContext } from '../context/filtreImageContext'
 import '../css/contentprofile.scss'
 import jsonData from '../data/site.json'
 import '../fontAwesome/css/all.min.css'
+import ListBox from './ListBox'
 
 const ContentProfile = ({ photographerID }) => {
+  const { filtreImageSelected } = useContext(filtreImageContext)
   const medias = []
-  const [filtre, setFiltre] = useState('popular')
+  //const [filtre, setFiltre] = useState('popular')
   // Function pour ajouter un ordre croissant et décroissant dans les filtres
   // const [ order, setOrder ] = useState('DESC')
   // const designOrder = { "ASC" : "↑", "DESC" : "↓"}
 
-  const filtreExistant = [
+  /*const filtreExistant = [
     { name: 'Popularité', function: 'popular' },
     { name: 'Date', function: 'date' },
     { name: 'Titre', function: 'title' },
-  ]
+  ]*/
 
-  const onFiltreChange = (event) => {
-    /* Function pour ajouter un ordre croissant et décroissant dans les filtres */ /*
+  //const onFiltreChange = (event) => {
+  /* Function pour ajouter un ordre croissant et décroissant dans les filtres */ /*
         var inverse_order = "DESC"
         order === "DESC" ? inverse_order = "ASC" : null
         order === "ASC" ? inverse_order = "DESC" : null
         filtre === filtre_existant[event.target.value].function ? setOrder(inverse_order) : null
         */
-    setFiltre(filtreExistant[event.target.value].function)
-  }
+  //setFiltre(filtreExistant[event.target.value].function)
+  //}
 
   // function to retrieve all product
   const initializeAllProduct = () => {
@@ -106,17 +110,19 @@ const ContentProfile = ({ photographerID }) => {
     <section className='product'>
       <div className='product__filter'>
         <p>Trier par</p>
-        <select onChange={onFiltreChange}>
+        {/* <select onChange={onFiltreChange}> 
           {Array.from(filtreExistant).map((filtreSelected, i) => (
             <option key={useUID(filtre, i)} value={i}>
               {filtreSelected.name}{' '}
-              {/* Partie pour ajouter filtre avec un ordre croissant et décroissant */
-              /* filtre_existant.map(function(e) { return e.function }).indexOf(filtre) === i ? designOrder[order] : null */}
+              {// Partie pour ajouter filtre avec un ordre croissant et décroissant
+              // filtre_existant.map(function(e) { return e.function }).indexOf(filtre) === i ? designOrder[order] : null 
+              }
             </option>
           ))}
-        </select>
+        </select>*/}
+        <ListBox />
       </div>
-      <div className='product__content'>{renderItem(filtre)}</div>
+      <div className='product__content'>{renderItem(filtreImageSelected)}</div>
     </section>
   )
 }
