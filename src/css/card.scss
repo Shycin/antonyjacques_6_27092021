@@ -117,7 +117,7 @@
             &>:nth-child(n) 
             {
                 margin: 10px 0;
-                width: max-content;
+                display: flex;
             }
 
             &__name

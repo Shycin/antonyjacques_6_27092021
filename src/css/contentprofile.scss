@@ -1,5 +1,7 @@
 @import "./constant.scss";
 
+$gap-image : 50px;
+
 .product
 {
     &__filter
@@ -28,25 +30,62 @@
     {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
 
-        gap: 50px 100px;
+        gap: 50px $gap-image;
 
         &__item
         {
-            width: 25%;
-            min-width: calc(100%/3 - 100px);
-            height: 300px;
-            overflow: hidden;
+            flex-basis: calc(100%/3 - (#{$gap-image} * 2)/3);
+            display: flex;
+            flex-flow: column;
+            gap: 10px;
 
-            img, video
+            &__image
             {
-                object-fit: cover;
-                width: 100% !important;
-                height: 100% !important; 
-                margin: 0 !important;
-                object-position: 50% 25%;
-            }
+                width: 100%;
+                height: calc((100vw - 80px * 4 ) / 3);
+                overflow: hidden;
+                border-radius: 5px;
+                cursor: pointer;
+    
+                img, video
+                {
+                    object-fit: cover;
+                    width: 100% !important;
+                    height: 100% !important; 
+                    margin: 0 !important;
+                    object-position: 50% 25%;
+                }
+            }   
+
+            &__description
+            {
+                display: flex;
+                justify-content: space-between;
+                line-height: 30px;
+
+                &__title
+                {
+                    h2
+                    {
+                        color: $primary-color;
+                        font-weight: normal;
+                    }   
+                }
+
+                &__likes
+                {
+                    cursor: pointer;
+                    align-items: baseline;
+                    display: flex;
+                    gap: 10px;
+
+                    .icon, .like
+                    {
+                        color: $primary-color;
+                    }
+                }   
+            } 
         }
     }
 }

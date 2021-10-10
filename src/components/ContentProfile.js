@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useUID } from 'react-uid'
 import '../css/contentprofile.scss'
 import jsonData from '../data/site.json'
+import '../fontAwesome/css/all.min.css'
 
 const ContentProfile = ({ photographerID }) => {
   const medias = []
@@ -10,7 +11,7 @@ const ContentProfile = ({ photographerID }) => {
   // Function pour ajouter un ordre croissant et décroissant dans les filtres
   // const [ order, setOrder ] = useState('DESC')
   // const designOrder = { "ASC" : "↑", "DESC" : "↓"}
-  console.log(photographerID)
+
   const filtreExistant = [
     { name: 'Popularité', function: 'popular' },
     { name: 'Date', function: 'date' },
@@ -38,7 +39,22 @@ const ContentProfile = ({ photographerID }) => {
   }
   initializeAllProduct()
 
-  const renderImage = (filterSelect) => {
+  const renderImage = (media) => (
+    <div className='product__content__item__image'>
+      {media.image ? (
+        <img alt={media.alt} src={`../img/${photographerID}/${media.image}`} />
+      ) : (
+        <video muted>
+          <source
+            src={`../img/${photographerID}/${media.video}`}
+            type='video/mp4'
+          />
+        </video>
+      )}
+    </div>
+  )
+
+  const renderItem = (filterSelect) => {
     let arrayRender = medias
     // var reverse = order == 'ASC' ? 1 : -1;
     let reverse = -1
@@ -70,26 +86,20 @@ const ContentProfile = ({ photographerID }) => {
         break
     }
 
-    return arrayRender.map((media, i) => {
-      console.log(media.likes, media.date, media.title)
-      return (
-        <div key={useUID(filtre, i)} className='product__content__item'>
-          {media.image ? (
-            <img
-              alt={media.alt}
-              src={`../img/${photographerID}/${media.image}`}
-            />
-          ) : (
-            <video muted poster={`../img/${photographerID}/${media.video}`}>
-              <source
-                src={`../img/${photographerID}/${media.video}`}
-                type='video/mp4'
-              />
-            </video>
-          )}
+    return arrayRender.map((media, i) => (
+      <div key={useUID(media, i)} className='product__content__item'>
+        {renderImage(media)}
+        <div className='product__content__item__description'>
+          <div className='product__content__item__description__title'>
+            <h2>{media.title}</h2>
+          </div>
+          <div className='product__content__item__description__likes'>
+            <p>{media.likes}</p>{' '}
+            <i aria-label='likes' className='fas fa-heart icon' />
+          </div>
         </div>
-      )
-    })
+      </div>
+    ))
   }
 
   return (
@@ -106,7 +116,7 @@ const ContentProfile = ({ photographerID }) => {
           ))}
         </select>
       </div>
-      <div className='product__content'>{renderImage(filtre)}</div>
+      <div className='product__content'>{renderItem(filtre)}</div>
     </section>
   )
 }

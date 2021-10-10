@@ -6,20 +6,17 @@ import ListTags from './ListTags'
 
 const Card = ({ photographer }) => {
   const { selected } = useContext(selectContext)
+  let hide = 'false'
 
   const hideOrShow = () => {
-    console.log(selected)
     if (selected !== 'default') {
-      return photographer.tags.indexOf(selected) !== -1 ? 'show' : ''
+      hide = photographer.tags.indexOf(selected) !== -1 ? 'show' : ' hidden'
     }
-
-    return 'hidden'
   }
+  hideOrShow()
 
   return (
-    <article
-      className={`photographers__card card ${hideOrShow}
-      `}>
+    <article className={`photographers__card card ${hide}`}>
       <div className='card__header'>
         <Link to={`/photographer-page/${photographer.id}`}>
           <figure className='card__header__icon'>
