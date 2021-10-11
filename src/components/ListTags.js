@@ -5,8 +5,6 @@ import jsonData from '../data/site.json'
 import Tag from './Tag'
 
 const ListTags = ({ tags, parameter }) => {
-  console.log(tags)
-
   // function to retrieve all tags if no tags parameter
   const initializeAllTags = () => {
     if (tags.length === 0 || tags.length == null) {
