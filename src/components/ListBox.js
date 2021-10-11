@@ -1,18 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { uid } from 'react-uid'
 import { filtreImageContext } from '../context/filtreImageContext'
+import '../css/listbox.scss'
 
 const ListBox = () => {
   const { filtreImageSelected, setFiltreImageSelected } =
     useContext(filtreImageContext)
-  const onSelect = (selecteur) => {
-    setFiltreImageSelected(selecteur)
-  }
-  const filtreExistant = [
-    { name: 'Popularité', function: 'popular' },
-    { name: 'Date', function: 'date' },
-    { name: 'Titre', function: 'title' },
-  ]
 
   const [hideList, setHideList] = useState(true)
   const onHideList = () => {
@@ -21,6 +14,17 @@ const ListBox = () => {
   }
   const isHideList = (hidden) => (hidden ? 'hidden' : '')
 
+  const onSelect = (selecteur) => {
+    setHideList(true)
+    setFiltreImageSelected(selecteur)
+  }
+  const filtreExistant = [
+    { name: 'Popularité', function: 'popular' },
+    { name: 'Date', function: 'date' },
+    { name: 'Titre', function: 'title' },
+  ]
+
+  // si l'élément dans les filtres est le même que celui actuellement séléctionner le met au dessus de la pile
   function mapFiltre() {
     const idx = filtreExistant.findIndex(
       (a) => a.function === filtreImageSelected
@@ -30,7 +34,6 @@ const ListBox = () => {
     filtreExistant.splice(0, 0, none[0])
 
     return filtreExistant.map((filtre, i) => (
-      // si l'élément dans les filtres est le même que celui actuellement séléctionner le met au dessus de la pile
       <button
         key={uid(filtre, i)}
         type='button'
@@ -39,6 +42,7 @@ const ListBox = () => {
         onClick={() => onSelect(filtre.function)}
         onKeyDown={() => onSelect(filtre.function)}>
         {filtre.name}
+        {i === 0 ? <i className='icon fas fa-chevron-up' /> : ''}
       </button>
     ))
   }
@@ -46,7 +50,6 @@ const ListBox = () => {
 
   useEffect(() => {
     const test = mapFiltre()
-    console.log(test)
     setRenderFiltre(test)
   }, [filtreImageSelected])
 
@@ -62,6 +65,7 @@ const ListBox = () => {
             filtre.function === filtreImageSelected ? filtre.name : ''
           )[0].name
         }
+        <i className='icon fas fa-chevron-down' />
       </button>
       <div className={`listbox__list ${isHideList(hideList)}`}>
         {renderFiltre}

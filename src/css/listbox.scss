@@ -1,0 +1,51 @@
+@import "./constant.scss";
+
+.listbox
+{
+  font-family: 'DM Sans';
+  position: relative;
+  background-color: $primary-color;
+  border-radius: 5px;
+
+  button
+  {
+    border: 0;
+    padding: 15px 10px;
+    margin: 0 10px;
+
+    color: white;
+    background-color: transparent;
+
+    font-family: 'DM Sans';
+    font-size: 17px;
+    width: 140px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+
+    .icon
+    {
+      margin-left: 10px;
+    }
+  }
+
+  &__list
+  {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    background-color: $primary-color;
+    border-radius: 5px;
+
+    
+
+    & :not(:first-child)
+    {
+      border-top: 1px solid white;
+    }
+
+  }
+}
