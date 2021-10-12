@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { uid } from 'react-uid'
 import { filtreImageContext } from '../context/filtreImageContext'
 import '../css/listbox.scss'
@@ -7,70 +7,84 @@ const ListBox = () => {
   const { filtreImageSelected, setFiltreImageSelected } =
     useContext(filtreImageContext)
 
-  const [hideList, setHideList] = useState(true)
-  const onHideList = () => {
-    if (hideList) setHideList(false)
-    else setHideList(true)
-  }
-  const isHideList = (hidden) => (hidden ? 'hidden' : '')
-
-  const onSelect = (selecteur) => {
-    setHideList(true)
-    setFiltreImageSelected(selecteur)
-  }
   const filtreExistant = [
     { name: 'Popularité', function: 'popular' },
     { name: 'Date', function: 'date' },
     { name: 'Titre', function: 'title' },
   ]
 
+  const [hideList, setHideList] = useState(true)
+  const isHideList = (hidden) => (hidden ? 'not_expended' : '')
+
   // si l'élément dans les filtres est le même que celui actuellement séléctionner le met au dessus de la pile
-  function mapFiltre() {
-    const idx = filtreExistant.findIndex(
-      (a) => a.function === filtreImageSelected
-    )
+  const mapFiltre = (currentFiltre) => {
+    const idx = filtreExistant.findIndex((a) => a.function === currentFiltre)
     const none = filtreExistant.splice(idx, 1)
     filtreExistant.sort((a, b) => a.function.localeCompare(b.function))
     filtreExistant.splice(0, 0, none[0])
 
     return filtreExistant.map((filtre, i) => (
-      <button
+      <div
+        link_type={filtre.function}
         key={uid(filtre, i)}
         type='button'
-        role='link'
-        tabIndex={i}
-        onClick={() => onSelect(filtre.function)}
-        onKeyDown={() => onSelect(filtre.function)}>
+        role='option'
+        tabIndex={hideList && i !== 0 ? '-1' : '0'}
+        id={`listbox-${i}`}
+        aria-selected={i === 0 ? 'true' : 'false'}
+        className={`listbox__item ${i === 0 ? 'selected' : ''}`}>
         {filtre.name}
-        {i === 0 ? <i className='icon fas fa-chevron-up' /> : ''}
-      </button>
+        {i === 0 ? (
+          <div>
+            <i className='icon fas fa-chevron-up up' />
+            <i className='icon fas fa-chevron-down down' />
+          </div>
+        ) : (
+          ''
+        )}
+      </div>
     ))
   }
-  const [renderFiltre, setRenderFiltre] = useState(mapFiltre())
 
-  useEffect(() => {
-    const test = mapFiltre()
-    setRenderFiltre(test)
-  }, [filtreImageSelected])
+  const listItemEvent = (e) => {
+    if (
+      e.type === 'click' ||
+      e.keyCode === 32 ||
+      e.key === ' ' ||
+      e.code === 'Space' ||
+      e.keyCode === 13 ||
+      e.key === 'Enter' ||
+      e.code === 'Enter'
+    ) {
+      e.preventDefault()
+
+      if (hideList) setHideList(false)
+      else setHideList(true)
+
+      if (
+        e.target.attributes.link_type &&
+        filtreExistant.findIndex(
+          (a) => a.function === e.target.attributes.link_type.nodeValue
+        ) >= 0
+      )
+        setFiltreImageSelected(e.target.attributes.link_type.nodeValue)
+    }
+  }
 
   return (
-    <div className='listbox'>
-      <button
-        type='button'
-        className='listbox__selecteur'
-        onClick={() => onHideList()}
-        onKeyDown={() => onHideList()}>
-        {
-          filtreExistant.filter((filtre) =>
-            filtre.function === filtreImageSelected ? filtre.name : ''
-          )[0].name
-        }
-        <i className='icon fas fa-chevron-down' />
-      </button>
-      <div className={`listbox__list ${isHideList(hideList)}`}>
-        {renderFiltre}
+    <div className='filter_listbox'>
+      <div
+        role='listbox'
+        tabIndex='0'
+        onClick={listItemEvent}
+        onKeyDown={listItemEvent}
+        onKeyPress={listItemEvent}
+        aria-activedescendant='listbox-1'
+        className={`listbox ${isHideList(hideList)}`}>
+        {mapFiltre(filtreImageSelected)}
       </div>
     </div>
   )
 }
+
 export default ListBox

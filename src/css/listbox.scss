@@ -1,51 +1,81 @@
 @import "./constant.scss";
 
-.listbox
+$max-height-filter: 50px;
+
+.filter_listbox
 {
-  font-family: 'DM Sans';
   position: relative;
-  background-color: $primary-color;
-  border-radius: 5px;
 
-  button
+  .listbox
   {
-    border: 0;
-    padding: 15px 10px;
-    margin: 0 10px;
-
-    color: white;
-    background-color: transparent;
-
-    font-family: 'DM Sans';
-    font-size: 17px;
-    width: 140px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    text-align: left;
-
-    .icon
-    {
-      margin-left: 10px;
-    }
-  }
-
-  &__list
-  {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0;
     background-color: $primary-color;
     border-radius: 5px;
+    color: white;
 
-    
+    position: absolute;
 
-    & :not(:first-child)
+    width: 140px;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    &.not_expended
     {
-      border-top: 1px solid white;
+      height: $max-height-filter;
+      overflow: hidden;
+
+      .down
+      {
+        display: none;
+      }
+    }   
+
+    &:not(.not_expended)
+    {
+      &::after
+      {
+        content:#{ $self }
+      }
+      .up
+      {
+        display: none;
+      }
     }
 
+    &__item
+    {
+      height: $max-height-filter;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+
+      padding: 0 10px;
+
+      &:hover, &:active, &:focus
+      {
+        background-color: $secondary-color;
+      }
+
+      &.selected
+      {
+        gap: 20px;
+      }
+
+      &:not(:first-child)::before
+      {
+        content:"";
+        position: absolute;
+        width: 90%;
+        border-top: 1px solid white;
+        margin-left: auto;
+        margin-right: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+      }
+    }
   }
 }
