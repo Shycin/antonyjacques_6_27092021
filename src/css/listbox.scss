@@ -2,80 +2,71 @@
 
 $max-height-filter: 50px;
 
-.filter_listbox
-{
-  position: relative;
 
-  .listbox
+.listbox
+{
+  &__btn
+  {
+    border: none;
+    color: #fff;
+    background: $primary-color;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'DM Sans';
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 140px;
+    border-radius: 5px;
+  }
+
+  &__list
   {
     background-color: $primary-color;
-    border-radius: 5px;
-    color: white;
-
     position: absolute;
-
+    border-radius: 5px;
     width: 140px;
-
-    cursor: pointer;
-
+    top: 0;
     overflow: hidden;
+  }
 
-    &.not_expended
+  &__elt
+  {
+    position: relative;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:hover, &:active, &:focus
     {
-      height: $max-height-filter;
-      overflow: hidden;
-
-      .down
-      {
-        display: none;
-      }
-    }   
-
-    &:not(.not_expended)
-    {
-      &::after
-      {
-        content:#{ $self }
-      }
-      .up
-      {
-        display: none;
-      }
+      background-color: $secondary-color;
     }
 
-    &__item
+    &:not(:first-child)::before
     {
-      height: $max-height-filter;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-
-      padding: 0 10px;
-
-      &:hover, &:active, &:focus
-      {
-        background-color: $secondary-color;
-      }
-
-      &.selected
-      {
-        gap: 20px;
-      }
-
-      &:not(:first-child)::before
-      {
-        content:"";
-        position: absolute;
-        width: 90%;
-        border-top: 1px solid white;
-        margin-left: auto;
-        margin-right: auto;
-        top: 0;
-        left: 0;
-        right: 0;
-        text-align: center;
-      }
+      content:"";
+      position: absolute;
+      width: 90%;
+      border-top: 1px solid white;
+      margin-left: auto;
+      margin-right: auto;
+      top: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
     }
   }
+
+
+  position: relative;
+
+  background-color: $primary-color;
+  border-radius: 5px;
+  color: white;
+
+  width: 140px;
+
+  cursor: pointer;
 }
