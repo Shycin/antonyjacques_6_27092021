@@ -11,26 +11,6 @@ import ListBox from './ListBox'
 const ContentProfile = ({ photographerID }) => {
   const { filtreImageSelected } = useContext(filtreImageContext)
   const medias = []
-  //const [filtre, setFiltre] = useState('popular')
-  // Function pour ajouter un ordre croissant et décroissant dans les filtres
-  // const [ order, setOrder ] = useState('DESC')
-  // const designOrder = { "ASC" : "↑", "DESC" : "↓"}
-
-  /*const filtreExistant = [
-    { name: 'Popularité', function: 'popular' },
-    { name: 'Date', function: 'date' },
-    { name: 'Titre', function: 'title' },
-  ]*/
-
-  //const onFiltreChange = (event) => {
-  /* Function pour ajouter un ordre croissant et décroissant dans les filtres */ /*
-        var inverse_order = "DESC"
-        order === "DESC" ? inverse_order = "ASC" : null
-        order === "ASC" ? inverse_order = "DESC" : null
-        filtre === filtre_existant[event.target.value].function ? setOrder(inverse_order) : null
-        */
-  //setFiltre(filtreExistant[event.target.value].function)
-  //}
 
   // function to retrieve all product
   const initializeAllProduct = () => {
@@ -99,7 +79,7 @@ const ContentProfile = ({ photographerID }) => {
           </div>
           <div className='product__content__item__description__likes'>
             <p>{media.likes}</p>{' '}
-            <i aria-label='likes' className='fas fa-heart icon' />
+            <span aria-label='likes' className='fas fa-heart icon' />
           </div>
         </div>
       </div>
@@ -110,16 +90,6 @@ const ContentProfile = ({ photographerID }) => {
     <section className='product'>
       <div className='product__filter'>
         <p>Trier par</p>
-        {/* <select onChange={onFiltreChange}> 
-          {Array.from(filtreExistant).map((filtreSelected, i) => (
-            <option key={useUID(filtre, i)} value={i}>
-              {filtreSelected.name}{' '}
-              {// Partie pour ajouter filtre avec un ordre croissant et décroissant
-              // filtre_existant.map(function(e) { return e.function }).indexOf(filtre) === i ? designOrder[order] : null 
-              }
-            </option>
-          ))}
-        </select>*/}
         <ListBox />
       </div>
       <div className='product__content'>{renderItem(filtreImageSelected)}</div>
