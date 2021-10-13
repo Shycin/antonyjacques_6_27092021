@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/no-redundant-roles */
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { uid } from 'react-uid'
 import { filtreImageContext } from '../context/filtreImageContext'
 import '../css/listbox.scss'
@@ -61,21 +61,7 @@ const ListBox = () => {
 
   const showItem = (e) => {
     if (verificationEvent(e)) {
-      e.preventDefault()
-
-      if (hideList) setHideList(false)
-      else setHideList(true)
-
-      if (
-        e.target.attributes.link_type &&
-        filtreExistant.findIndex(
-          (a) => a.function === e.target.attributes.link_type.nodeValue
-        ) > 0
-      ) {
-        setFiltreImageSelected(e.target.attributes.link_type.nodeValue)
-        const listbox = document.getElementsByClassName('selected')[0]
-        listbox.focus()
-      }
+      setHideList(false)
     }
   }
 
@@ -86,10 +72,11 @@ const ListBox = () => {
         filtreExistant.findIndex((a) => a.function === selection) > 0
       ) {
         setFiltreImageSelected(selection)
-        // const listbox = document.getElementsByClassName('listbox__btn')[0]
-        // listbox.focus()
       }
 
+      e.preventDefault()
+      const listbox = document.getElementsByClassName('listbox__btn')[0]
+      listbox.focus()
       setHideList(true)
     }
   }
@@ -116,7 +103,9 @@ const ListBox = () => {
             id={`order-${i}`}
             key={uid(filtre, i)}
             role='option'
-            className='listbox__elt selected'
+            className={`listbox__elt ${
+              filtre.function === filtreImageSelected ? 'selected' : ''
+            }`}
             tabIndex='0'
             onClick={selectItem(filtre.function)}
             onKeyDown={selectItem(filtre.function)}
@@ -132,21 +121,12 @@ const ListBox = () => {
     )
   }
 
-  /* return (
-    <div className='filter_listbox'>
-      <div
-        role='listbox'
-        tabIndex='-1'
-        onClick={listItemEvent}
-        onKeyDown={listItemEvent}
-        onKeyPress={listItemEvent}
-        aria-activedescendant='listbox-1'
-        aria-expanded='true'
-        className={`listbox ${isHideList(hideList)}`}>
-        {mapFiltre(filtreImageSelected)}
-      </div>
-    </div>
-  ) */
+  useEffect(() => {
+    if (document.getElementsByClassName('selected').length) {
+      const listbox = document.getElementsByClassName('selected')[0]
+      listbox.focus()
+    }
+  }, [mapFiltre])
 
   return (
     <div className='listbox'>
