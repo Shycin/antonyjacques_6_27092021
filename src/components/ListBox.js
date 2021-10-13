@@ -70,27 +70,27 @@ const ListBox = () => {
         e.target.attributes.link_type &&
         filtreExistant.findIndex(
           (a) => a.function === e.target.attributes.link_type.nodeValue
-        ) >= 0
+        ) > 0
       ) {
         setFiltreImageSelected(e.target.attributes.link_type.nodeValue)
-        const listbox = document.getElementsByClassName('listbox__list ')[0]
+        const listbox = document.getElementsByClassName('selected')[0]
         listbox.focus()
       }
     }
   }
 
-  const selectItem = (e) => {
+  const selectItem = (selection) => (e) => {
     if (verificationEvent(e)) {
-      e.preventDefault()
-      console.log(e)
-      /* if (
+      if (
         selection &&
-        filtreExistant.findIndex((a) => a.function === selection) >= 0
+        filtreExistant.findIndex((a) => a.function === selection) > 0
       ) {
         setFiltreImageSelected(selection)
-        const listbox = document.getElementsByClassName('listbox__btn')[0]
-        listbox.focus()
-      } */
+        // const listbox = document.getElementsByClassName('listbox__btn')[0]
+        // listbox.focus()
+      }
+
+      setHideList(true)
     }
   }
 
@@ -118,9 +118,9 @@ const ListBox = () => {
             role='option'
             className='listbox__elt selected'
             tabIndex='0'
-            onClick={selectItem}
-            onKeyDown={selectItem}
-            onKeyPress={selectItem}
+            onClick={selectItem(filtre.function)}
+            onKeyDown={selectItem(filtre.function)}
+            onKeyPress={selectItem(filtre.function)}
             aria-selected={
               filtre.function === filtreImageSelected ? 'true' : 'false'
             }>
