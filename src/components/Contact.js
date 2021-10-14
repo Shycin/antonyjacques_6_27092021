@@ -1,34 +1,30 @@
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
+import { openModalContext } from '../context/openModal'
 import '../css/contact.scss'
 import Modal from './Modal'
 
-const Contact = ({ photographerID }) => {
-  console.log(photographerID)
-  const [, /* open */ setOpen] = useState(false)
+const Contact = ({ photographer }) => {
+  const { setOpenModal } = useContext(openModalContext)
 
   return (
     <>
       <div
         className='btn-contact'
-        onClick={() => {
-          setOpen(true)
-          setOpen(false)
-        }}
-        onKeyDown={() => {
-          setOpen(true)
-          setOpen(false)
-        }}
+        onClick={() => setOpenModal(true)}
+        onKeyDown={() => setOpenModal(true)}
         role='button'
         tabIndex={0}>
         Contactez-moi
       </div>
-      <Modal eventModal />
+      <Modal photographer={photographer} />
     </>
   )
 }
 export default Contact
 
 Contact.propTypes = {
-  photographerID: PropTypes.number.isRequired,
+  photographer: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number])
+  ).isRequired,
 }

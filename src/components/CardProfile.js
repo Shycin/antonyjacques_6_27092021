@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { ContextOpenModalContextProvider } from '../context/openModal'
 import { selectContext } from '../selectContext'
 import Contact from './Contact'
 import ListTags from './ListTags'
@@ -27,7 +28,9 @@ const CardProfile = ({ photographer }) => {
         </div>
       </div>
       <div className='card__contact'>
-        <Contact photographerID={photographer.id} />
+        <ContextOpenModalContextProvider>
+          <Contact photographer={photographer} />
+        </ContextOpenModalContextProvider>
       </div>
       <figure className='card__icon'>
         <img

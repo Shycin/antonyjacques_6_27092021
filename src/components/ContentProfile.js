@@ -8,14 +8,14 @@ import jsonData from '../data/site.json'
 import '../fontAwesome/css/all.min.css'
 import ListBox from './ListBox'
 
-const ContentProfile = ({ photographerID }) => {
+const ContentProfile = ({ photographer }) => {
   const { filtreImageSelected } = useContext(filtreImageContext)
   const medias = []
 
   // function to retrieve all product
   const initializeAllProduct = () => {
     jsonData.media.map((media) => {
-      if (media.photographerId === photographerID) {
+      if (media.photographerId === photographer.id) {
         medias.push(media)
       }
       return true
@@ -26,11 +26,11 @@ const ContentProfile = ({ photographerID }) => {
   const renderImage = (media) => (
     <div className='product__content__item__image'>
       {media.image ? (
-        <img alt={media.alt} src={`../img/${photographerID}/${media.image}`} />
+        <img alt={media.alt} src={`../img/${photographer.id}/${media.image}`} />
       ) : (
         <video muted>
           <source
-            src={`../img/${photographerID}/${media.video}`}
+            src={`../img/${photographer.id}/${media.video}`}
             type='video/mp4'
           />
         </video>
@@ -99,9 +99,11 @@ const ContentProfile = ({ photographerID }) => {
 export default ContentProfile
 
 ContentProfile.propTypes = {
-  photographerID: PropTypes.number,
-}
-
-ContentProfile.defaultProps = {
-  photographerID: null,
+  photographer: PropTypes.objectOf(
+    PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string),
+    ])
+  ).isRequired,
 }

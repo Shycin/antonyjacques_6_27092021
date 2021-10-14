@@ -1,82 +1,92 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useContext } from 'react'
+import { openModalContext } from '../context/openModal'
 import '../css/modal.scss'
 
-const Modal = ({ eventModal }) => {
-  const { open, setOpen } = eventModal
-  console.log(eventModal)
-  // const [, /* hideList */ setHideList] = useState(eventModal)
-
-  // const openModal = () => {
-  //   setHideList(false)
-  // }
+const Modal = ({ photographer }) => {
+  const { openModal, setOpenModal } = useContext(openModalContext)
 
   const validate = (e) => {
-    console.log(e)
+    console.log('photographe : ', photographer.id)
     e.preventDefault()
   }
 
   return (
-    <div className={`bground ${open ? 'hidden' : ''}`}>
-      <div className='content'>
+    <div className={`bground ${!openModal ? 'hidden' : ''}`}>
+      <div className='content' aria-labelledby='contact-me'>
         <label htmlFor='closeTag' className='close'>
           <input
             id='closeTag'
             type='button'
             className='hidden'
-            onClick={setOpen(true)}
-            onKeyDown={setOpen(true)}
+            aria-label='Close Contact form'
+            onClick={() => setOpenModal(false)}
+            onKeyDown={() => setOpenModal(false)}
           />
         </label>
         <div className='modal-body'>
+          <h2 id='contact-me'>Contactez-moi {photographer.name}</h2>
           <form
             name='reserve'
             action='index.html'
             method='get'
-            onSubmit={validate}>
+            onSubmit={() => validate}>
             <div className='formData'>
-              <label htmlFor='first'>
+              <label htmlFor='first' id='firstname'>
                 Prénom
                 <input
                   className='text-control'
                   type='text'
                   id='first'
                   name='first'
+                  aria-label='First name'
+                  aria-labelledby='firstname'
                 />
               </label>
             </div>
             <div className='formData'>
-              <label htmlFor='last'>
-                Nom{' '}
+              <label htmlFor='last' id='lastname'>
+                Nom
                 <input
                   className='text-control'
                   type='text'
                   id='last'
                   name='last'
+                  aria-label='Last name'
+                  aria-labelledby='lastname'
                 />
               </label>
             </div>
             <div className='formData'>
-              <label htmlFor='email'>
-                E-mail{' '}
-                <input className='text-control' id='email' name='email' />
+              <label htmlFor='email' id='emailLabel'>
+                E-mail
+                <input
+                  className='text-control'
+                  id='email'
+                  name='email'
+                  aria-label='Email'
+                  aria-labelledby='emailLabel'
+                />
               </label>
             </div>
             <div className='formData'>
-              <label htmlFor='message'>
+              <label htmlFor='message' id='messageLabel'>
                 Votre message
                 <textarea
                   className='text-control'
                   type='text'
                   id='message'
                   name='message'
+                  aria-label='Your message'
+                  aria-labelledby='messageLabel'
                 />
               </label>
             </div>
             <input
               className='button btn-submit'
               type='submit'
-              value="C'est parti"
+              value='Envoyer'
+              aria-label='send'
             />
           </form>
         </div>
@@ -88,5 +98,7 @@ const Modal = ({ eventModal }) => {
 export default Modal
 
 Modal.propTypes = {
-  eventModal: PropTypes.bool.isRequired,
+  photographer: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number])
+  ).isRequired,
 }
