@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/button-has-type */
-/* eslint-disable jsx-a11y/no-redundant-roles */
 import React, { useContext, useEffect, useState } from 'react'
 import { uid } from 'react-uid'
 import { filtreImageContext } from '../context/filtreImageContext'
@@ -20,7 +17,6 @@ const ListBox = () => {
   const isHideList = (hidden) => (hidden ? 'hidden' : '')
 
   const verificationEvent = (e) =>
-    e.type === 'click' ||
     e.keyCode === 32 ||
     e.key === ' ' ||
     e.code === 'Space' ||
@@ -28,26 +24,22 @@ const ListBox = () => {
     e.key === 'Enter' ||
     e.code === 'Enter'
 
-  const showItem = (e) => {
-    if (verificationEvent(e)) {
-      setHideList(false)
-    }
+  const showItem = () => {
+    setHideList(false)
   }
 
-  const selectItem = (selection) => (e) => {
-    if (verificationEvent(e)) {
-      if (
-        selection &&
-        filtreExistant.findIndex((a) => a.function === selection) > 0
-      ) {
-        setFiltreImageSelected(selection)
-      }
-
-      e.preventDefault()
-      const listbox = document.getElementsByClassName('listbox__btn')[0]
-      listbox.focus()
-      setHideList(true)
+  const selectItem = (e, selection) => {
+    if (
+      selection &&
+      filtreExistant.findIndex((a) => a.function === selection) > 0
+    ) {
+      setFiltreImageSelected(selection)
     }
+
+    e.preventDefault()
+    const listbox = document.getElementsByClassName('listbox__btn')[0]
+    listbox.focus()
+    setHideList(true)
   }
 
   // si l'élément dans les filtres est le même que celui actuellement séléctionner le met au dessus de la pile
@@ -76,9 +68,10 @@ const ListBox = () => {
               filtre.function === filtreImageSelected ? 'selected' : ''
             }`}
             tabIndex='0'
-            onClick={selectItem(filtre.function)}
-            onKeyDown={selectItem(filtre.function)}
-            onKeyPress={selectItem(filtre.function)}
+            onClick={() => selectItem(filtre.function)}
+            onKeyPress={(e) =>
+              verificationEvent(e) ? selectItem(e, filtre.function) : ''
+            }
             aria-selected={
               filtre.function === filtreImageSelected ? 'true' : 'false'
             }>
@@ -101,9 +94,8 @@ const ListBox = () => {
     <div className='listbox'>
       <button
         onClick={showItem}
-        onKeyDown={showItem}
-        onKeyPress={showItem}
-        role='button'
+        onKeyDown={(e) => (verificationEvent(e) ? showItem : '')}
+        type='button'
         aria-haspopup='listbox'
         aria-labelledby='order_label'
         aria-expanded='false'

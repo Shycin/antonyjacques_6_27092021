@@ -28,7 +28,7 @@
   font-size: 16px;
 }
 
-.button:hover {
+.button:hover, .button:active, .button:focus {
   background: #3876ac;
 }
 

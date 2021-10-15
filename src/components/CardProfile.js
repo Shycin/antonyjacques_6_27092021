@@ -22,7 +22,7 @@ const CardProfile = ({ photographer }) => {
         </div>
         <p className='card__content__description'>{photographer.tagline}</p>
         <div className='card__categories'>
-          <Link to='/'>
+          <Link tabIndex='-1' to='/'>
             <ListTags tags={photographer.tags} />
           </Link>
         </div>

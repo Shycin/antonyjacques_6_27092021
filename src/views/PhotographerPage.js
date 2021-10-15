@@ -14,14 +14,11 @@ const PhotographerPage = () => {
   // function to retrieve all product
   const initializeAllProduct = () => {
     jsonData.photographers.map((author) => {
-      console.log(author.id, photographerID)
       if (author.id === parseInt(photographerID, 10)) {
         photographer.push(author)
       }
       return true
     })
-
-    console.log(photographer)
   }
   initializeAllProduct()
 
