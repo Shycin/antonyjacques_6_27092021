@@ -42,12 +42,22 @@ header
         {
             grid-area: d2;
             font-size: 16px;
+
+            @media (max-width:$breakpoint-only-mobile) 
+            {
+                font-size: 12px;
+            }
         }
 
         .navigation
         {
             grid-area: d3;
         }
+    }
+
+    @media (max-width:$breakpoint-only-mobile) 
+    {
+        gap: 0;
     }
 
     .reset_Cards

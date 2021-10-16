@@ -62,3 +62,8 @@ button:hover, button:active, button:focus
 {
     background: $secondary-color;
 }
+
+.notScroll
+{
+    overflow-y: hidden;
+}

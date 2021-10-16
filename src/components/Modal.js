@@ -7,6 +7,23 @@ import '../css/modal.scss'
 const Modal = ({ photographer }) => {
   const { openModal, setOpenModal } = useContext(openModalContext)
 
+  function hasClass(ele, cls) {
+    return !!ele.className.match(new RegExp(`(\\s|^)${cls}(\\s|$)`))
+  }
+
+  function addClass(ele, cls) {
+    const element = ele
+    if (!hasClass(element, cls)) element.className += ` ${cls}`
+  }
+
+  function removeClass(ele, cls) {
+    const element = ele
+    if (hasClass(element, cls)) {
+      const reg = new RegExp(`(\\s|^)${cls}(\\s|$)`)
+      element.className = ele.className.replace(reg, ' ')
+    }
+  }
+
   function checkTabPress(e) {
     // pick passed event or global event object if passed one is empty
     let activeElement
@@ -47,8 +64,11 @@ const Modal = ({ photographer }) => {
 
   useEffect(() => {
     if (openModal) {
+      addClass(document.getElementsByTagName('body')[0], 'notScroll')
       document.getElementById('firstname').focus()
       document.querySelector('body').addEventListener('keyup', checkTabPress)
+    } else {
+      removeClass(document.getElementsByTagName('body')[0], 'notScroll')
     }
   }, [openModal])
 

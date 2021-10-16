@@ -187,6 +187,11 @@
                 width: 150px;
                 height: 150px;
             }
+            @media (max-width:$breakpoint-only-mobile) 
+            {
+                width: 100px;
+                height: 100px;
+            }
         }
     }
 }
