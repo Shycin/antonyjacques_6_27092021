@@ -28,7 +28,7 @@ const ListBox = () => {
     setHideList(false)
   }
 
-  const selectItem = (e, selection) => {
+  const selectItem = (selection) => {
     if (
       selection &&
       filtreExistant.findIndex((a) => a.function === selection) > 0
@@ -36,7 +36,6 @@ const ListBox = () => {
       setFiltreImageSelected(selection)
     }
 
-    e.preventDefault()
     const listbox = document.getElementsByClassName('listbox__btn')[0]
     listbox.focus()
     setHideList(true)
@@ -70,7 +69,7 @@ const ListBox = () => {
             tabIndex='0'
             onClick={() => selectItem(filtre.function)}
             onKeyPress={(e) =>
-              verificationEvent(e) ? selectItem(e, filtre.function) : ''
+              verificationEvent(e) ? selectItem(filtre.function) : ''
             }
             aria-selected={
               filtre.function === filtreImageSelected ? 'true' : 'false'
