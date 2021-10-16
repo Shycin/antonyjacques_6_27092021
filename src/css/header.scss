@@ -26,7 +26,7 @@ header
         flex: 1;
     }
 
-    @media (max-width:768px) 
+    @media (max-width:$breakpoint-light) 
     {
         display: grid;
         grid-template: 'd1 d2' 'd3 d3';
@@ -35,7 +35,6 @@ header
         .logo
         {
             grid-area: d1;
-            margin-left: -50px;
             width: 200px;
         }
 

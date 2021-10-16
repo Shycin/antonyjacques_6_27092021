@@ -6,7 +6,7 @@ $gap-image : 50px;
 {
     &__filter
     {
-        margin: 20px 0 50px 0;
+        margin: 20px 0 0 0;
         display: flex;
         gap: 20px;
         font-weight: bold;
@@ -24,12 +24,18 @@ $gap-image : 50px;
             background-image: none;
             box-shadow: none;
         }
+
+        @media (max-width:$breakpoint-light) 
+        {
+            display: none;
+        }
     }
 
     &__content
     {
         display: flex;
         flex-wrap: wrap;
+        margin-top: 50px;
 
         gap: 50px $gap-image;
 
@@ -55,6 +61,11 @@ $gap-image : 50px;
                     height: 100% !important; 
                     margin: 0 !important;
                     object-position: 50% 25%;
+                }
+
+                @media (max-width:$breakpoint-light) 
+                {
+                    height: 50vw;
                 }
             }   
 
@@ -86,6 +97,11 @@ $gap-image : 50px;
                     }
                 }   
             } 
+
+            @media (max-width:$breakpoint-light) 
+            {
+                flex-basis: 100%;
+            }
         }
     }
 }

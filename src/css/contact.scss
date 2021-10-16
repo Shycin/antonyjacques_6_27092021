@@ -11,4 +11,11 @@
     color: white;
 
     cursor: pointer;
+
+    @media (max-width:$breakpoint-light) 
+    {    
+        width: 50%;
+        font-weight: 700;
+        font-size: 22px;
+    }
 }

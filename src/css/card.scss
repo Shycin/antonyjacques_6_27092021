@@ -102,6 +102,12 @@
         {
             width: 100%;
         }
+
+        @media (max-width:$breakpoint-light) 
+        {
+            background-color: unset;
+            padding: 0px;
+        }
     }
 
     .card
@@ -125,6 +131,11 @@
                 color: $secondary-color;
                 font-size: 3rem;
                 margin: 0 !important;
+
+                @media (max-width:$breakpoint-light) 
+                {
+                    font-size: 2rem;
+                }
             }
 
             &__location
@@ -142,6 +153,17 @@
         &__contact
         {
             flex: 1;
+            
+            @media (max-width:$breakpoint-light) 
+            {
+                position: fixed;
+                bottom: 20px;
+                left: 0;
+                right: 0;
+                text-align: center;
+
+                z-index: 1000;
+            }
         }
 
         &__icon
@@ -152,14 +174,18 @@
             border-radius: 100%;
             overflow: hidden;
 
-            margin: 0 auto 20px auto;
-
             img
             {
                 object-fit: cover;
                 width: 100% !important;
                 height: 100% !important; 
                 margin: 0 !important;
+            }
+
+            @media (max-width:$breakpoint-light) 
+            {
+                width: 150px;
+                height: 150px;
             }
         }
     }
