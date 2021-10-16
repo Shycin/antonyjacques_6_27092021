@@ -47,7 +47,7 @@ const Modal = ({ photographer }) => {
 
   useEffect(() => {
     if (openModal) {
-      document.getElementsByClassName('content')[0].focus()
+      document.getElementById('firstname').focus()
       document.querySelector('body').addEventListener('keyup', checkTabPress)
     }
   }, [openModal])
