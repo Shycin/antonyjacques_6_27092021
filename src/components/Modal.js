@@ -28,6 +28,9 @@ const Modal = ({ photographer }) => {
     // pick passed event or global event object if passed one is empty
     let activeElement
     if (e.keyCode === 9) {
+      console.log('tab press')
+      e.stopPropagation()
+      e.preventDefault()
       // Here read the active selected link.
       activeElement = document.activeElement
       // If HTML element is an anchor <a>

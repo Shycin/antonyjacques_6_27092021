@@ -79,7 +79,11 @@ const ContentProfile = ({ photographer }) => {
           </div>
           <div className='product__content__item__description__likes'>
             <p>{media.likes}</p>{' '}
-            <span aria-label='likes' className='fas fa-heart icon' />
+            <button
+              type='button'
+              aria-label='likes'
+              className='fas fa-heart icon'
+            />
           </div>
         </div>
       </div>

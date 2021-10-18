@@ -52,13 +52,13 @@ button
 {
     border: 0;
     color: #fff;
-    background: $primary-color;
+    background: none;
     cursor: pointer;
     font-weight: 700;
     font-family: 'DM Sans';
 }
 
-button:hover, button:active, button:focus
+button:not(.fas):hover, button:not(.fas):active, button:not(.fas):focus
 {
     background: $secondary-color;
 }
