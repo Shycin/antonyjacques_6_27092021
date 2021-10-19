@@ -26,10 +26,14 @@ const ContentProfile = ({ photographer }) => {
     setLiked(liked.filter((each) => each !== item))
   }
 
-  const toggleArrayItem = (item) => {
+  const toggleArrayItem = (e, item) => {
+    const target = e.target.parentElement.getElementsByClassName('nbLike')[0]
+
     if (liked.indexOf(item) >= 0) {
+      target.innerText = parseInt(target.innerText, 10) - 1
       removeItem(item)
     } else {
+      target.innerText = parseInt(target.innerText, 10) + 1
       setLiked([...liked, item])
     }
   }
@@ -109,11 +113,11 @@ const ContentProfile = ({ photographer }) => {
             role='button'
             onKeyPress={(e) => {
               if (verificationEvent(e)) {
-                toggleArrayItem(i)
+                toggleArrayItem(e, i)
               }
             }}
-            onClick={() => toggleArrayItem(i)}>
-            <p id='order_label'>{media.likes}</p>{' '}
+            onClick={(e) => toggleArrayItem(e, i)}>
+            <p className='nbLike'>{media.likes}</p>
             <button
               type='button'
               aria-label='likes'
@@ -128,7 +132,7 @@ const ContentProfile = ({ photographer }) => {
   return (
     <section className='product'>
       <div className='product__filter'>
-        <p>Trier par</p>
+        <p id='order_label'>Trier par</p>
         <ListBox />
       </div>
       <div className='product__content'>{renderItem(filtreImageSelected)}</div>
