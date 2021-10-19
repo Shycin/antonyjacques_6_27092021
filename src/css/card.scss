@@ -160,9 +160,11 @@
                 bottom: 20px;
                 left: 0;
                 right: 0;
-                text-align: center;
 
                 z-index: 1000;
+
+                display: flex;
+                justify-content: center;
             }
         }
 

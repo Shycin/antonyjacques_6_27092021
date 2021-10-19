@@ -76,7 +76,7 @@
 
 .modal-body {
   padding: 15px 8%;
-  margin: 15px auto;
+  margin: auto;
 
   h2
   {
@@ -235,7 +235,6 @@ input[data-error]::after {
   height: 32px;
   opacity: 1;
   cursor: pointer;
-  transform: scale(0.7);
 }
 .close:before,
 .close:after {

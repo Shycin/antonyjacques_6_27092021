@@ -28,9 +28,6 @@ const Modal = ({ photographer }) => {
     // pick passed event or global event object if passed one is empty
     let activeElement
     if (e.keyCode === 9) {
-      console.log('tab press')
-      e.stopPropagation()
-      e.preventDefault()
       // Here read the active selected link.
       activeElement = document.activeElement
       // If HTML element is an anchor <a>
@@ -39,9 +36,16 @@ const Modal = ({ photographer }) => {
           activeElement.hasAttribute('tabIndex') &&
           parseInt(activeElement.attributes.tabIndex.nodeValue, 10) >= 50 &&
           parseInt(activeElement.attributes.tabIndex.nodeValue, 10) < 60
-        )
+        ) ||
+        activeElement.hasAttribute('lastmodal')
       ) {
         document.getElementById('first').focus()
+        e.stopPropagation()
+        e.preventDefault()
+      } else if (activeElement.hasAttribute('firstmodal') && e.shiftKey) {
+        document.querySelectorAll('.bground *[lastmodal]')[0].focus()
+        e.stopPropagation()
+        e.preventDefault()
       }
     }
   }
@@ -69,7 +73,7 @@ const Modal = ({ photographer }) => {
     if (openModal) {
       addClass(document.getElementsByTagName('body')[0], 'notScroll')
       document.getElementById('firstname').focus()
-      document.querySelector('body').addEventListener('keyup', checkTabPress)
+      document.querySelector('body').addEventListener('keydown', checkTabPress)
     } else {
       removeClass(document.getElementsByTagName('body')[0], 'notScroll')
     }
@@ -78,27 +82,25 @@ const Modal = ({ photographer }) => {
   return (
     <div tabIndex='-1' className={`bground ${!openModal ? 'hidden' : ''}`}>
       <div role='dialog' className='content' aria-labelledby='contact-me'>
-        <label htmlFor='closeTag' className='close'>
-          <input
-            tabIndex='55'
-            id='closeTag'
-            type='button'
-            aria-label='Close Contact form'
-            onClick={() => {
-              document.getElementById('contactMe').focus()
-              setOpenModal(false)
-            }}
-            onKeyDown={(e) =>
-              verificationEvent(e)
-                ? () => {
-                    console.log(document.getElementById('contactMe'))
-                    document.getElementById('contactMe').focus()
-                    setOpenModal(false)
-                  }
-                : ''
-            }
-          />
-        </label>
+        <button
+          lastmodal='true'
+          tabIndex='55'
+          className='close'
+          type='button'
+          aria-label='Close Contact form'
+          onClick={() => {
+            document.getElementById('contactMe').focus()
+            setOpenModal(false)
+          }}
+          onKeyDown={(e) =>
+            verificationEvent(e)
+              ? () => {
+                  document.getElementById('contactMe').focus()
+                  setOpenModal(false)
+                }
+              : ''
+          }
+        />
         <div className='modal-body'>
           <h2 id='contact-me'>Contactez-moi {photographer.name}</h2>
           <form
@@ -110,6 +112,7 @@ const Modal = ({ photographer }) => {
               <label htmlFor='first' id='firstname'>
                 Prénom
                 <input
+                  firstmodal='true'
                   tabIndex='50'
                   className='text-control'
                   type='text'

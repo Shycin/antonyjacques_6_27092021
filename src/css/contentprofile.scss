@@ -91,11 +91,17 @@ $gap-image : 50px;
                     cursor: pointer;
                     align-items: baseline;
                     display: flex;
-                    gap: 10px;
 
                     .icon, .like
                     {
                         color: $primary-color;
+                    }
+
+                    &.liked, &.liked button 
+                    {
+                        font-weight: bold;
+                        color: $primary-color;
+                        font-size: 120%;
                     }
                 }   
             } 

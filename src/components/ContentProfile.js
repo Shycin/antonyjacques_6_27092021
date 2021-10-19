@@ -1,6 +1,7 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable spaced-comment */
 import PropTypes from 'prop-types'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useUID } from 'react-uid'
 import { filtreImageContext } from '../context/filtreImageContext'
 import '../css/contentprofile.scss'
@@ -10,7 +11,28 @@ import ListBox from './ListBox'
 
 const ContentProfile = ({ photographer }) => {
   const { filtreImageSelected } = useContext(filtreImageContext)
+  const [liked, setLiked] = useState([])
   const medias = []
+
+  const verificationEvent = (e) =>
+    e.keyCode === 32 ||
+    e.key === ' ' ||
+    e.code === 'Space' ||
+    e.keyCode === 13 ||
+    e.key === 'Enter' ||
+    e.code === 'Enter'
+
+  const removeItem = (item) => {
+    setLiked(liked.filter((each) => each !== item))
+  }
+
+  const toggleArrayItem = (item) => {
+    if (liked.indexOf(item) >= 0) {
+      removeItem(item)
+    } else {
+      setLiked([...liked, item])
+    }
+  }
 
   // function to retrieve all product
   const initializeAllProduct = () => {
@@ -77,8 +99,21 @@ const ContentProfile = ({ photographer }) => {
           <div className='product__content__item__description__title'>
             <h2>{media.title}</h2>
           </div>
-          <div className='product__content__item__description__likes'>
-            <p>{media.likes}</p>{' '}
+          <div
+            className={
+              liked.indexOf(i) >= 0
+                ? 'product__content__item__description__likes liked'
+                : 'product__content__item__description__likes'
+            }
+            tabIndex={0}
+            role='button'
+            onKeyPress={(e) => {
+              if (verificationEvent(e)) {
+                toggleArrayItem(i)
+              }
+            }}
+            onClick={() => toggleArrayItem(i)}>
+            <p id='order_label'>{media.likes}</p>{' '}
             <button
               type='button'
               aria-label='likes'
