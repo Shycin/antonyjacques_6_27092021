@@ -1,0 +1,18 @@
+@import 'constant.scss';
+
+.QualificationPhotographer
+{
+  position: fixed;
+  bottom: 0;
+  right: 50px;
+
+  background-color: $secondary-color;
+
+  padding: 10px 30px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}

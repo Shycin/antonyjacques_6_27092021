@@ -33,7 +33,9 @@ const PhotographerPage = () => {
           <ContextFiltreImageContextProvider>
             <ContentProfile photographer={photographer[0]} />
           </ContextFiltreImageContextProvider>
-          <PhotographerQualification />
+          <PhotographerQualification
+            photographerID={parseInt(photographerID, 10)}
+          />
         </ContextImageLikedContextProvider>
       </main>
     </div>

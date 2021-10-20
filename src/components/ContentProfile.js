@@ -1,5 +1,3 @@
-/* eslint-disable no-use-before-define */
-/* eslint-disable spaced-comment */
 import PropTypes from 'prop-types'
 import React, { useContext, useEffect, useState } from 'react'
 import { useUID } from 'react-uid'
