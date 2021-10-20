@@ -1,0 +1,95 @@
+@import 'constant.scss';
+
+.product
+{
+  .lightbox &__content
+  {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    margin: 0;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+
+    &__item
+    {
+      display: none;
+    }
+
+    &__item
+    {
+      $self: &;
+
+      &--show
+      {
+        display: block;
+      
+        flex-basis: 70%;
+        height: 80vw;
+        margin: auto;
+        max-height: 80%;
+        position: relative;
+        max-width: 1800px;
+
+        &::after
+        {
+          font-family: 'Font Awesome\ 5 Free';
+          content: '\f00d';
+          position: absolute;
+          right: -40px;
+          top: 0;
+          font-weight: 900;
+          color: $primary-color;
+          font-size: 2rem;
+          cursor: pointer;
+        }
+
+        & .fas:hover, & .fas:active, & .fas:focus {
+          color: $secondary-color;
+        }
+      }
+
+      &__image
+      {
+        height: 100%;
+
+        .fa-chevron-left
+        {
+          font-family: 'Font Awesome\ 5 Free';
+          content: "\f053"; /* FontAwesome Unicode */
+          position: absolute;
+          top: 40%;
+          left: -40px;
+          font-weight: 900;
+          color: $primary-color;
+          font-size: 2rem;
+        }
+
+        .fa-chevron-right
+        {
+          font-family: 'Font Awesome\ 5 Free';
+          position: absolute;
+          content: "\f054";
+          top: 40%;
+          right: -40px;
+          font-weight: 900;
+          color: $primary-color;
+          font-size: 2rem;
+        }
+      }
+
+      &__description
+      {
+        margin-top: 10px;
+
+        &__likes
+        {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
