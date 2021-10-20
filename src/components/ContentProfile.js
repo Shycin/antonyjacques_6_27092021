@@ -1,18 +1,31 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable spaced-comment */
 import PropTypes from 'prop-types'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useUID } from 'react-uid'
 import { filtreImageContext } from '../context/filtreImageContext'
+import { imageLikedContext } from '../context/imageLiked'
 import '../css/contentprofile.scss'
 import jsonData from '../data/site.json'
 import '../fontAwesome/css/all.min.css'
 import ListBox from './ListBox'
 
 const ContentProfile = ({ photographer }) => {
+  const { totalLikes, setTotalLikes } = useContext(imageLikedContext)
   const { filtreImageSelected } = useContext(filtreImageContext)
-  const [liked, setLiked] = useState([])
-  const medias = []
+  const [medias, setMedias] = useState(
+    jsonData.media
+      .map((media) => (media.photographerId === photographer.id ? media : null))
+      .filter((x) => x !== null)
+  )
+
+  useEffect(() => {
+    let ret = 0
+    medias.forEach((element) => {
+      ret += element.likes
+    })
+    setTotalLikes(ret)
+  }, [])
 
   const verificationEvent = (e) =>
     e.keyCode === 32 ||
@@ -22,54 +35,33 @@ const ContentProfile = ({ photographer }) => {
     e.key === 'Enter' ||
     e.code === 'Enter'
 
-  const removeItem = (item) => {
-    setLiked(liked.filter((each) => each !== item))
-  }
+  const toggleArrayItem = (e, index) => {
+    const current = medias[index]
 
-  const toggleArrayItem = (e, item) => {
-    const target = e.target.parentElement.getElementsByClassName('nbLike')[0]
-
-    if (liked.indexOf(item) >= 0) {
-      target.innerText = parseInt(target.innerText, 10) - 1
-      removeItem(item)
+    if (current.liked) {
+      setTotalLikes(totalLikes - 1)
+      current.likes -= 1
+      current.liked = false
     } else {
-      target.innerText = parseInt(target.innerText, 10) + 1
-      setLiked([...liked, item])
+      setTotalLikes(totalLikes + 1)
+      current.likes += 1
+      current.liked = true
     }
+
+    const newMedia = [
+      ...medias.slice(0, index),
+      current,
+      ...medias.slice(index + 1),
+    ]
+    setMedias(newMedia)
   }
 
-  // function to retrieve all product
-  const initializeAllProduct = () => {
-    jsonData.media.map((media) => {
-      if (media.photographerId === photographer.id) {
-        medias.push(media)
-      }
-      return true
-    })
-  }
-  initializeAllProduct()
-
-  const renderImage = (media) => (
-    <div className='product__content__item__image'>
-      {media.image ? (
-        <img alt={media.alt} src={`../img/${photographer.id}/${media.image}`} />
-      ) : (
-        <video muted>
-          <source
-            src={`../img/${photographer.id}/${media.video}`}
-            type='video/mp4'
-          />
-        </video>
-      )}
-    </div>
-  )
-
-  const renderItem = (filterSelect) => {
+  const applyFilter = () => {
     let arrayRender = medias
     // var reverse = order == 'ASC' ? 1 : -1;
     let reverse = -1
 
-    switch (filterSelect) {
+    switch (filtreImageSelected) {
       case 'popular':
         arrayRender = arrayRender.sort(
           (a, b) => reverse * ((a.likes > b.likes) - (b.likes > a.likes))
@@ -95,8 +87,27 @@ const ContentProfile = ({ photographer }) => {
       default:
         break
     }
+    if (arrayRender !== medias) setMedias(arrayRender)
+  }
 
-    return arrayRender.map((media, i) => (
+  const renderImage = (media) => (
+    <div className='product__content__item__image'>
+      {media.image ? (
+        <img alt={media.alt} src={`../img/${photographer.id}/${media.image}`} />
+      ) : (
+        <video muted>
+          <source
+            src={`../img/${photographer.id}/${media.video}`}
+            type='video/mp4'
+          />
+        </video>
+      )}
+    </div>
+  )
+
+  const renderItem = () => {
+    applyFilter()
+    return medias.map((media, i) => (
       <div key={useUID(media, i)} className='product__content__item'>
         {renderImage(media)}
         <div className='product__content__item__description'>
@@ -105,7 +116,7 @@ const ContentProfile = ({ photographer }) => {
           </div>
           <div
             className={
-              liked.indexOf(i) >= 0
+              media.liked
                 ? 'product__content__item__description__likes liked'
                 : 'product__content__item__description__likes'
             }
@@ -135,7 +146,7 @@ const ContentProfile = ({ photographer }) => {
         <p id='order_label'>Trier par</p>
         <ListBox />
       </div>
-      <div className='product__content'>{renderItem(filtreImageSelected)}</div>
+      <div className='product__content'>{renderItem(medias)}</div>
     </section>
   )
 }
