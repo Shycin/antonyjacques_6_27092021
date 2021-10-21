@@ -14,35 +14,30 @@ import ListBox from './ListBox'
 const ContentProfile = ({ photographer }) => {
   const { totalLikes, setTotalLikes } = useContext(imageLikedContext)
   const { filtreImageSelected } = useContext(filtreImageContext)
-  const [lightbox, setLightbox] = useState('')
+  const [lightbox, setLightbox] = useState(null)
   const [indexlightbox, setIndexlightbox] = useState(null)
+  const [lastdirection, setLastDirection] = useState(null)
   const [medias, setMedias] = useState(
     jsonData.media
       .map((media) => (media.photographerId === photographer.id ? media : null))
       .filter((x) => x !== null)
   )
 
-  function checkTabPress(e) {
-    console.log(e)
+  const checkTabPress = function (e) {
     // pick passed event or global event object if passed one is empty
     let activeElement
-    if (e.keyCode === 9) {
+    if (e.keyCode === 9 && lightbox !== '') {
       // Here read the active selected link.
       activeElement = document.activeElement
+      console.log(activeElement)
       // If HTML element is an anchor <a>
-      if (
-        !(
-          activeElement.hasAttribute('tabIndex') &&
-          parseInt(activeElement.attributes.tabIndex.nodeValue, 10) >= 50 &&
-          parseInt(activeElement.attributes.tabIndex.nodeValue, 10) < 60
-        ) ||
-        activeElement.hasAttribute('lastbox')
-      ) {
-        console.log(
-          document.querySelectorAll(
-            '.product__content__item--show .fa-chevron-right'
-          )
-        )
+      if (activeElement.hasAttribute('firstbox') && e.shiftKey) {
+        document
+          .querySelectorAll('.product__content__item--show *[lastbox]')[0]
+          .focus()
+        e.stopPropagation()
+        e.preventDefault()
+      } else if (activeElement.hasAttribute('lastbox') && e.shiftKey) {
         document
           .querySelectorAll(
             '.product__content__item--show .fa-chevron-right'
@@ -50,14 +45,25 @@ const ContentProfile = ({ photographer }) => {
           .focus()
         e.stopPropagation()
         e.preventDefault()
-      } else if (activeElement.hasAttribute('firstbox') && e.shiftKey) {
-        console.log(
-          document.querySelectorAll(
-            '.product__content__item--show *[lastbox]'
-          )[0]
-        )
+      } else if (activeElement.hasAttribute('lastbox')) {
+        console.log('test')
         document
-          .querySelectorAll('.product__content__item--show *[lastbox]')[0]
+          .querySelectorAll('.product__content__item--show *[firstbox]')[0]
+          .focus()
+        e.stopPropagation()
+        e.preventDefault()
+      } else if (
+        !(
+          activeElement.hasAttribute('tabIndex') &&
+          parseInt(activeElement.attributes.tabIndex.nodeValue, 10) >= 50 &&
+          parseInt(activeElement.attributes.tabIndex.nodeValue, 10) < 60
+        ) ||
+        activeElement.hasAttribute('lastbox')
+      ) {
+        document
+          .querySelectorAll(
+            '.product__content__item--show .fa-chevron-right'
+          )[0]
           .focus()
         e.stopPropagation()
         e.preventDefault()
@@ -136,17 +142,49 @@ const ContentProfile = ({ photographer }) => {
     if (arrayRender !== medias) setMedias(arrayRender)
   }
 
+  const body = document.querySelector('body')
   const openLightBox = (key) => {
-    if (lightbox === '') {
+    console.log(lightbox)
+
+    if (lightbox === null) {
       setIndexlightbox(key)
       setLightbox('lightbox')
+      body.addEventListener('keydown', checkTabPress, true)
+    }
 
-      document.querySelector('body').addEventListener('keydown', checkTabPress)
+    if (lightbox === '') {
+      console.log('second')
+      setIndexlightbox(key)
+      setLightbox('lightbox')
+    }
+  }
+
+  const closeLightBox = (key) => {
+    if (lightbox !== '') {
+      setLightbox('')
+      setIndexlightbox(null)
+
+      document
+        .getElementsByClassName('product__content__item--show')[0]
+        .classList.toggle('product__content__item')
+
+      document
+        .getElementsByClassName('product__content__item--show')[0]
+        .classList.toggle('product__content__item--show')
+
+      document
+        .getElementsByClassName('product__content__item')
+        [key].getElementsByClassName('product__content__item__image')[0]
+        .focus()
+      console.log(
+        document
+          .getElementsByClassName('product__content__item')
+          [key].getElementsByClassName('product__content__item__image')[0]
+      )
     }
   }
 
   const changeIndexLightBox = (number) => {
-    console.log(number)
     document
       .getElementsByClassName('product__content__item--show')[0]
       .classList.toggle('product__content__item')
@@ -155,11 +193,27 @@ const ContentProfile = ({ photographer }) => {
       .getElementsByClassName('product__content__item--show')[0]
       .classList.toggle('product__content__item--show')
 
-    setIndexlightbox(indexlightbox + number)
+    if (indexlightbox + number < 0) {
+      setIndexlightbox(
+        document.getElementsByClassName('product__content__item').length - 1
+      )
+    } else if (
+      document.getElementsByClassName('product__content__item').length - 1 <
+      indexlightbox + number
+    ) {
+      setIndexlightbox(0)
+    } else {
+      setIndexlightbox(indexlightbox + number)
+    }
+
+    if (number > 0) {
+      setLastDirection('right')
+    } else {
+      setLastDirection('left')
+    }
   }
 
   useEffect(() => {
-    console.log(indexlightbox)
     if (indexlightbox !== null) {
       document
         .getElementsByClassName('product__content__item')
@@ -168,11 +222,17 @@ const ContentProfile = ({ photographer }) => {
         .getElementsByClassName('product__content__item')
         [indexlightbox].classList.toggle('product__content__item')
 
-      document
-        .querySelector(
-          '.product__content__item--show .product__content__item__image .fa-chevron-right'
-        )
-        .focus()
+      if (lastdirection === 'right') {
+        document
+          .querySelectorAll(
+            '.product__content__item--show .fa-chevron-right'
+          )[0]
+          .focus()
+      } else {
+        document
+          .querySelectorAll('.product__content__item--show .fa-chevron-left')[0]
+          .focus()
+      }
     }
   }, [indexlightbox])
 
@@ -180,21 +240,30 @@ const ContentProfile = ({ photographer }) => {
     <div
       role='button'
       className='product__content__item__image'
-      tabIndex={lightbox === '' ? 0 : -1}
-      onKeyDown={() => openLightBox(key)}
+      tabIndex={lightbox === 'lightbox' ? -1 : 0}
+      onKeyDown={(e) => (verificationEvent(e) ? openLightBox(key) : '')}
       onClick={() => openLightBox(key)}>
-      {lightbox !== '' ? (
+      {lightbox === 'lightbox' ? (
+        <span
+          lastbox='true'
+          role='button'
+          tabIndex={52}
+          onClick={() => closeLightBox(key)}
+          onKeyDown={(e) => (verificationEvent(e) ? closeLightBox(key) : '')}
+          type='button'
+          className='fas fa-times'
+        />
+      ) : (
+        ''
+      )}
+      {lightbox === 'lightbox' ? (
         <span
           firstbox='true'
           role='button'
           tabIndex={50}
           onClick={() => changeIndexLightBox(-1)}
           onKeyDown={(e) =>
-            verificationEvent(e)
-              ? () => {
-                  changeIndexLightBox(-1)
-                }
-              : console.log('bug')
+            verificationEvent(e) ? changeIndexLightBox(-1) : ''
           }
           type='button'
           className='fas fa-chevron-left'
@@ -205,25 +274,20 @@ const ContentProfile = ({ photographer }) => {
       {media.image ? (
         <img alt={media.alt} src={`../img/${photographer.id}/${media.image}`} />
       ) : (
-        <video muted>
+        <video muted autoPlay='autoplay'>
           <source
             src={`../img/${photographer.id}/${media.video}`}
             type='video/mp4'
           />
         </video>
       )}
-      {lightbox !== '' ? (
+      {lightbox === 'lightbox' ? (
         <span
-          lasttbox='true'
           role='button'
           tabIndex={51}
           onClick={() => changeIndexLightBox(1)}
           onKeyDown={(e) =>
-            verificationEvent(e)
-              ? () => {
-                  changeIndexLightBox(1)
-                }
-              : ''
+            verificationEvent(e) ? changeIndexLightBox(1) : ''
           }
           type='button'
           className='fas fa-chevron-right'
