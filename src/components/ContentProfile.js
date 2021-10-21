@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/tabindex-no-positive */
 import PropTypes from 'prop-types'
@@ -23,13 +24,12 @@ const ContentProfile = ({ photographer }) => {
       .filter((x) => x !== null)
   )
 
-  const checkTabPress = function (e) {
+  function checkTabPress(e) {
     // pick passed event or global event object if passed one is empty
     let activeElement
-    if (e.keyCode === 9 && lightbox !== '') {
+    if (e.keyCode === 9 && lightbox === 'lightbox') {
       // Here read the active selected link.
       activeElement = document.activeElement
-      console.log(activeElement)
       // If HTML element is an anchor <a>
       if (activeElement.hasAttribute('firstbox') && e.shiftKey) {
         document
@@ -46,7 +46,6 @@ const ContentProfile = ({ photographer }) => {
         e.stopPropagation()
         e.preventDefault()
       } else if (activeElement.hasAttribute('lastbox')) {
-        console.log('test')
         document
           .querySelectorAll('.product__content__item--show *[firstbox]')[0]
           .focus()
@@ -144,8 +143,6 @@ const ContentProfile = ({ photographer }) => {
 
   const body = document.querySelector('body')
   const openLightBox = (key) => {
-    console.log(lightbox)
-
     if (lightbox === null) {
       setIndexlightbox(key)
       setLightbox('lightbox')
@@ -153,7 +150,6 @@ const ContentProfile = ({ photographer }) => {
     }
 
     if (lightbox === '') {
-      console.log('second')
       setIndexlightbox(key)
       setLightbox('lightbox')
     }
@@ -171,16 +167,15 @@ const ContentProfile = ({ photographer }) => {
       document
         .getElementsByClassName('product__content__item--show')[0]
         .classList.toggle('product__content__item--show')
-
-      document
-        .getElementsByClassName('product__content__item')
-        [key].getElementsByClassName('product__content__item__image')[0]
-        .focus()
       console.log(
         document
           .getElementsByClassName('product__content__item')
-          [key].getElementsByClassName('product__content__item__image')[0]
+          [key].querySelectorAll('*[tabindex]')[0]
       )
+      document
+        .getElementsByClassName('product__content__item')
+        [key].querySelectorAll('*[tabindex]')[0]
+        .focus()
     }
   }
 
@@ -236,6 +231,10 @@ const ContentProfile = ({ photographer }) => {
     }
   }, [indexlightbox])
 
+  const playVideo = {
+    autoPlay: true,
+    loop: true,
+  }
   const renderImage = (media, key) => (
     <div
       role='button'
@@ -274,7 +273,7 @@ const ContentProfile = ({ photographer }) => {
       {media.image ? (
         <img alt={media.alt} src={`../img/${photographer.id}/${media.image}`} />
       ) : (
-        <video muted autoPlay='autoplay'>
+        <video muted {...(lightbox === 'lightbox' ? playVideo : '')}>
           <source
             src={`../img/${photographer.id}/${media.video}`}
             type='video/mp4'
@@ -301,7 +300,10 @@ const ContentProfile = ({ photographer }) => {
   const renderItem = () => {
     applyFilter()
     return medias.map((media, i) => (
-      <div key={useUID(media, i)} className='product__content__item'>
+      <div
+        tabIndex={-1}
+        key={useUID(media, i)}
+        className='product__content__item'>
         {renderImage(media, i)}
         <div className='product__content__item__description'>
           <div className='product__content__item__description__title'>
