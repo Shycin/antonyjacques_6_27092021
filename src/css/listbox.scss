@@ -20,6 +20,7 @@ $max-height-filter: 50px;
   {
     background-color: $primary-color;
     position: absolute;
+    z-index: 1000;
     border-radius: 5px;
     width: 140px;
     top: 0;

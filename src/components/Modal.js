@@ -77,6 +77,12 @@ const Modal = ({ photographer }) => {
     } else {
       removeClass(document.getElementsByTagName('body')[0], 'notScroll')
     }
+
+    return () => {
+      document
+        .querySelector('body')
+        .removeEventListener('keydown', checkTabPress)
+    }
   }, [openModal])
 
   return (

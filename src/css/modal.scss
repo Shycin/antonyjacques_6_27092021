@@ -262,6 +262,7 @@ input[data-error]::after {
   color: #fff;
   cursor: pointer;
   border: 0;
+  border-radius: 5px;
 
   @media (max-width:$breakpoint-only-mobile) 
   {

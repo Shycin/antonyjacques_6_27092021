@@ -24,8 +24,22 @@ const ListBox = () => {
     e.key === 'Enter' ||
     e.code === 'Enter'
 
+  const closeListbox = (e) => {
+    if (
+      e.target.id !== 'order_filtre' &&
+      e.target.parentElement &&
+      e.target.parentElement.id !== 'order_filtre'
+    )
+      setHideList(true)
+  }
+
   const showItem = () => {
     setHideList(false)
+    document.querySelector('body').addEventListener('click', closeListbox)
+
+    return () => {
+      document.querySelector('body').removeEventListener('click', closeListbox)
+    }
   }
 
   const selectItem = (selection) => {
@@ -75,7 +89,7 @@ const ListBox = () => {
               filtre.function === filtreImageSelected ? 'true' : 'false'
             }>
             {filtre.name}
-            {i === 0 ? <span className='fas fa-chevron-down' /> : ''}
+            {i === 0 ? <span className='fas fa-chevron-up' /> : ''}
           </li>
         ))}
       </ul>
@@ -109,7 +123,7 @@ const ListBox = () => {
             ].name
           }
         </span>
-        <span className='fas fa-chevron-up' />
+        <span className='fas fa-chevron-down' />
       </button>
       {mapFiltre()}
     </div>
