@@ -145,6 +145,16 @@ const ContentProfile = ({ photographer }) => {
   useEffect(() => {
     body.addEventListener('keydown', checkTabPress, true)
 
+    // re focus after lightbox was disable
+    if (lightbox !== 'lightbox' && indexlightbox !== null) {
+      document
+        .getElementsByClassName('product__content__item')
+        [indexlightbox].querySelectorAll('*[tabindex]')[0]
+        .focus()
+
+      setIndexlightbox(null)
+    }
+
     return () => body.removeEventListener('keydown', checkTabPress, true)
   }, [lightbox])
 
@@ -155,10 +165,10 @@ const ContentProfile = ({ photographer }) => {
     }
   }
 
-  const closeLightBox = (key) => {
+  const closeLightBox = () => {
     if (lightbox !== '') {
       setLightbox(null)
-      setIndexlightbox(null)
+      // setIndexlightbox(null)
 
       document
         .getElementsByClassName('product__content__item--show')[0]
@@ -167,15 +177,6 @@ const ContentProfile = ({ photographer }) => {
       document
         .getElementsByClassName('product__content__item--show')[0]
         .classList.toggle('product__content__item--show')
-      console.log(
-        document
-          .getElementsByClassName('product__content__item')
-          [key].querySelectorAll('*[tabindex]')[0]
-      )
-      document
-        .getElementsByClassName('product__content__item')
-        [key].querySelectorAll('*[tabindex]')[0]
-        .focus()
     }
   }
 
@@ -247,8 +248,8 @@ const ContentProfile = ({ photographer }) => {
           lastbox='true'
           role='button'
           tabIndex={52}
-          onClick={() => closeLightBox(key)}
-          onKeyDown={(e) => (verificationEvent(e) ? closeLightBox(key) : '')}
+          onClick={() => closeLightBox()}
+          onKeyDown={(e) => (verificationEvent(e) ? closeLightBox() : '')}
           type='button'
           className='fas fa-times'
         />
