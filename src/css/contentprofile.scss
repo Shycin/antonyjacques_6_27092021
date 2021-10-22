@@ -63,6 +63,11 @@ $gap-image : 50px;
                     height: 100% !important; 
                     margin: 0 !important;
                     object-position: 50% 25%;
+
+                    @media (max-width:$breakpoint-light) 
+                    {
+                        object-position: 50% 0;
+                    }
                 }
 
                 @media (max-width:$breakpoint-light) 

@@ -142,14 +142,14 @@ const ContentProfile = ({ photographer }) => {
   }
 
   const body = document.querySelector('body')
+  useEffect(() => {
+    body.addEventListener('keydown', checkTabPress, true)
+
+    return () => body.removeEventListener('keydown', checkTabPress, true)
+  }, [lightbox])
+
   const openLightBox = (key) => {
     if (lightbox === null) {
-      setIndexlightbox(key)
-      setLightbox('lightbox')
-      body.addEventListener('keydown', checkTabPress, true)
-    }
-
-    if (lightbox === '') {
       setIndexlightbox(key)
       setLightbox('lightbox')
     }
@@ -157,7 +157,7 @@ const ContentProfile = ({ photographer }) => {
 
   const closeLightBox = (key) => {
     if (lightbox !== '') {
-      setLightbox('')
+      setLightbox(null)
       setIndexlightbox(null)
 
       document
