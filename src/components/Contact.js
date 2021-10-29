@@ -19,7 +19,7 @@ const Contact = ({ photographer }) => {
     <>
       <button
         id='contactMe'
-        className='btn-contact'
+        className='btn-contact btn'
         type='button'
         onClick={() => setOpenModal(true)}
         onKeyDown={(e) => (verificationEvent(e) ? setOpenModal(true) : '')}

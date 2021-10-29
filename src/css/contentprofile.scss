@@ -11,6 +11,7 @@ $gap-image : 50px;
         margin: 20px 0 0 0;
         display: flex;
         gap: 20px;
+        align-items: center;
         font-weight: bold;
 
         select
@@ -96,6 +97,11 @@ $gap-image : 50px;
                     cursor: pointer;
                     align-items: baseline;
                     display: flex;
+
+                    .nbLike
+                    {
+                        margin-right: 5px;
+                    }
 
                     .icon, .like
                     {

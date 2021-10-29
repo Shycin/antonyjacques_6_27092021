@@ -51,14 +51,13 @@ ul
 button
 {
     border: 0;
-    color: #fff;
     background: none;
     cursor: pointer;
     font-weight: 700;
     font-family: 'DM Sans';
 }
 
-button:not(.fas):hover, button:not(.fas):active, button:not(.fas):focus
+.btn:hover, .btn:active, .btn:focus
 {
     background: $secondary-color;
 }

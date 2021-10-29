@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-redundant-roles */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/tabindex-no-positive */
@@ -239,6 +240,7 @@ const ContentProfile = ({ photographer }) => {
   const renderImage = (media, key) => (
     <div
       role='button'
+      aria-label='Aperçu en diaporama'
       className='product__content__item__image'
       tabIndex={lightbox === 'lightbox' ? -1 : 0}
       onKeyDown={(e) => (verificationEvent(e) ? openLightBox(key) : '')}
@@ -274,7 +276,10 @@ const ContentProfile = ({ photographer }) => {
       {media.image ? (
         <img alt={media.alt} src={`../img/${photographer.id}/${media.image}`} />
       ) : (
-        <video muted {...(lightbox === 'lightbox' ? playVideo : '')}>
+        <video
+          alt={media.alt}
+          muted
+          {...(lightbox === 'lightbox' ? playVideo : '')}>
           <source
             src={`../img/${photographer.id}/${media.video}`}
             type='video/mp4'
@@ -310,7 +315,8 @@ const ContentProfile = ({ photographer }) => {
           <div className='product__content__item__description__title'>
             <h2>{media.title}</h2>
           </div>
-          <div
+          <button
+            type='button'
             className={
               media.liked
                 ? 'product__content__item__description__likes liked'
@@ -325,8 +331,8 @@ const ContentProfile = ({ photographer }) => {
             }}
             onClick={(e) => toggleArrayItem(e, i)}>
             <p className='nbLike'>{media.likes}</p>
-            <span aria-label='likes' className='fas fa-heart icon' />
-          </div>
+            <i className='fas fa-heart icon' />
+          </button>
         </div>
       </div>
     ))
