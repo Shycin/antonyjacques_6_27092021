@@ -88,6 +88,7 @@ const ContentProfile = ({ photographer }) => {
     e.code === 'Enter'
 
   const toggleArrayItem = (e, index) => {
+    console.log(e)
     const current = medias[index]
 
     if (current.liked) {
@@ -324,11 +325,6 @@ const ContentProfile = ({ photographer }) => {
             }
             tabIndex={0}
             role='button'
-            onKeyPress={(e) => {
-              if (verificationEvent(e)) {
-                toggleArrayItem(e, i)
-              }
-            }}
             onClick={(e) => toggleArrayItem(e, i)}>
             <p className='nbLike'>{media.likes}</p>
             <i className='fas fa-heart icon' />
